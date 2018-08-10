@@ -1,14 +1,15 @@
 'use strict';
-var list = document.getElementsByTagName("ul")[0];
-for(var i = 0; i < data.length; i++) {
-  var item = document.createElement("li");
+const list = document.getElementsByTagName("ul")[0];
+for(let i = 0; i < data.length; i++) {
+  let item = document.createElement("li");
   item.className = "step in-view";
+  item.setAttribute("id", "trigger" + i)
   if (data[i].type.indexOf("coup") >= 0) {
     item.className += " last";
   }
 
-  var htmlString = "<div>";
-  var dateObject = new Date(data[i].date);
+  let htmlString = "<div>";
+  let dateObject = new Date(data[i].date);
   dateObject.setFullYear(dateObject.getFullYear() - 543);
   htmlString += "<div class='time'>" +
     dateObject.toLocaleDateString("th-u-ca-buddhist", {"weekday":"long","year":"numeric","month":"short","day":"numeric"}) +
@@ -20,7 +21,7 @@ for(var i = 0; i < data.length; i++) {
   }
   htmlString += "</div>";
   if (data[i].type.indexOf("coup") >= 0) {
-    for (var j = 0; j < coup.length; j++) {
+    for (let j = 0; j < coup.length; j++) {
       if (coup[j].id === data[i].coup_id) {
         htmlString += "<div class='text'>โดย " + coup[j].by + "<br />สมัย " + coup[j].to + "</div>";
         break;
@@ -33,36 +34,14 @@ for(var i = 0; i < data.length; i++) {
   list.insertAdjacentElement("beforeend", item);
 }
 
-// // check if an element is in viewport
-// // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
-// function isElementInViewport(el) {
-//   var rect = el.getBoundingClientRect();
-//   // Check only top and bottom and consider the case that the post's height is longer than the window height
-//   return (rect.bottom - 100 > 0 && rect.top + 100 < (window.innerHeight || document.documentElement.clientHeight));
-// }
-//
-// var items = document.querySelectorAll(".timeline li");
-// function callbackFunction() {
-//   for (var i = 0; i < items.length; i++) {
-//     if (isElementInViewport(items[i])) {
-//       items[i].classList.add("in-view");
-//     }
-//   }
-// }
-//
-// window.addEventListener("load", callbackFunction);
-// window.addEventListener("resize", callbackFunction);
-// window.addEventListener("scroll", callbackFunction);
 
-// scrollama
 const timeline = d3.select(".timeline");
 const fixedPart = timeline.select(".fixed");
-// const steps = timeline.select(".scrolling").selectAll('.step');
 
 fixedPart.style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
 
-function handleStepEnter(response) {
-  if (data[response.index].name.substring(0, 9) === "รัฐประหาร") {
+function handleStepEnter(index) {
+  if (data[index].name.substring(0, 9) === "รัฐประหาร") {
     fixedPart
       .transition()
         .duration(2000)
@@ -80,37 +59,24 @@ function handleStepEnter(response) {
     // });
   }
 
-  console.log("step " + response.index + " enter");
-  console.log(data[response.index].name);
+  // console.log("step " + index + " enter");
+  console.log(data[index].name);
 }
-function handleStepExit(response) {
-  console.log("step " + response.index + " exit");
-}
-function handleContainerEnter() {
-  // sticky the graphic
-	// fixedPart.classed('is-fixed', true);
-	// fixedPart.classed('is-bottom', false);
-
-  console.log("container enter");
-}
-function handleContainerExit(response) {
-  // un-sticky the graphic, and pin to top/bottom of container
-	// fixedPart.classed('is-fixed', false);
-	// fixedPart.classed('is-bottom', response.direction === 'down');
-
-  console.log("container exit");
+function handleStepLeave(index) {
+  // console.log("step " + index + " exit");
 }
 
-const scroller = scrollama();
-scroller
-  .setup({
-    container: ".timeline",
-    text: ".scrolling",
-    step: ".scrolling .step",
-    graphic: ".fixed",
-    // debug: true
-  })
-  .onStepEnter(handleStepEnter)
-  .onStepExit(handleStepExit)
-  .onContainerEnter(handleContainerEnter)
-  .onContainerExit(handleContainerExit);
+const controller = new ScrollMagic.Controller();
+const steps = document.querySelectorAll("li.step");
+for (let i = 0; i < steps.length; i++) {
+	new ScrollMagic.Scene({
+			triggerElement: steps[i],
+      duration: steps[i].getBoundingClientRect().height
+		})
+    // .setPin("#trigger1")
+    // .setClassToggle("#animate1", "zap")
+		.on("enter", function(e) { handleStepEnter(i); })
+    .on("leave", function(e) { handleStepLeave(i); })
+		.addIndicators() // debug (requires plugin)
+		.addTo(controller);
+}
