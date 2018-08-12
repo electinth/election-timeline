@@ -1,18 +1,28 @@
+const pixelsPerDay = 10;
+function diffDays(fromMs, toMs) {
+  return (toMs - fromMs) / 1000 / 60 / 60 / 24;
+}
+
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
   const election_date = document.getElementById("election_date");
   const counter = document.getElementById("counter");
+
+  let dates = [];
+  for(let i = 0; i < data.length; i++) {
+    dates.push(new Date(data[i].date));
+  }
+  const days = diffDays(dates[0].getTime(), Date.now());
 
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
     item.className = "step in-view";
     item.setAttribute("id", "trigger" + i)
 
-    let htmlString = "<div>";
-    let dateObject = new Date(data[i].date);
-    // dateObject.setFullYear(dateObject.getFullYear() - 543);
+    const height = (i < data.length-1)? (diffDays(dates[i], dates[i+1])*pixelsPerDay + "px") : "100vh";
+    let htmlString = "<div style='height:" + height + ";'>";
     htmlString += "<div class='time'>" +
-      dateObject.toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
+      dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
       "</div><div class='title'>" +
       data[i].event +
       "</div>";
@@ -60,7 +70,7 @@ d3.csv("elections.csv", function(data) {
     election_date.style.color = (data[index].election_date === "")? "white" : "black";
     election_date.getElementsByClassName("text")[0].innerHTML = data[index].election_date || "ไม่ปรากฏ";
 
-    counter.getElementsByClassName("text")[0].innerHTML = data[index].days;
+    // counter.getElementsByClassName("text")[0].innerHTML = data[index].days;
 
     // console.log("step " + index + " enter");
     // console.log(data[index].date);
@@ -97,6 +107,9 @@ d3.csv("elections.csv", function(data) {
     .on("enter leave", function(e) {
       election_date.classList.toggle("shown");
       counter.classList.toggle("shown");
+    })
+    .on("progress", function(e) {
+      counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
     })
     .addTo(controller);
 });
