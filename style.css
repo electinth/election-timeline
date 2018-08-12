@@ -39,7 +39,7 @@
 }
 
 body {
-  font: normal 16px 'Noto Sans Thai UI', sans-serif;
+  font: normal 16px 'Noto Sans Thai UI', 'Noto Sans', sans-serif;
   color: black;
   /* color: white; */
   overflow-x: hidden;
@@ -70,7 +70,7 @@ a:hover {
 
 h1 {
   font-size: 40px;
-  font-weight: 800;
+  font-weight: bold;
   line-height: 45px;
 }
 h2 {
@@ -79,7 +79,7 @@ h2 {
 }
 h3 {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: bold;
 }
 h4 {
   font-size: 10px;
@@ -160,7 +160,7 @@ h4 {
 }
 /* .text, .status {
   display: block;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 22px;
 }
 .text {
