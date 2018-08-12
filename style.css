@@ -100,6 +100,9 @@ h4 {
   margin-top: 2em;
 }
 
+#counter .text {
+  font-family: 'Libre Baskerville', serif
+}
 #election_date, #counter {
   visibility: hidden;
   opacity: 0;
@@ -247,11 +250,11 @@ h4 {
   opacity: 1;
 }
 
-.article p {
+/* .article p {
   text-indent: 2em;
   margin-bottom: 1em;
   font-family: 'Thonburi', serif;
-}
+} */
 
 .logo {
   display: inline-block;
