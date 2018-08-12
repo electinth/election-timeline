@@ -7,11 +7,6 @@ d3.csv("elections.csv", function(data) {
     let item = document.createElement("li");
     item.className = "step in-view";
     item.setAttribute("id", "trigger" + i)
-    if (data[i].election_date === "") {
-      item.className += " red-box";
-    } else {
-      item.className += " white-box";
-    }
 
     let htmlString = "<div>";
     let dateObject = new Date(data[i].date);
@@ -42,9 +37,8 @@ d3.csv("elections.csv", function(data) {
   }
 
   const timeline = d3.select(".timeline");
-  const fixedPart = timeline.select(".fixed");
-
-  fixedPart.style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
+  // const fixedPart = timeline.select(".fixed");
+  // fixedPart.style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
 
   function handleStepEnter(index) {
     // if (data[index].name.substring(0, 9) === "รัฐประหาร") {
@@ -59,6 +53,7 @@ d3.csv("elections.csv", function(data) {
     //       .style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
     // }
 
+    timeline.classed("red-background", data[index].election_date === "");
     election_date.innerHTML = data[index].election_date || "ไม่ปรากฏ";
     counter.innerHTML = data[index].days;
 
