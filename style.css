@@ -130,21 +130,34 @@ h4 {
   height: 100%;
   padding: 15px;
 }
-.white-background {
-  background: white;
-  color: black;
-  transition: all 0.5 ease;
-}
 .red-background {
   background: #F0324B;
   color: white;
-  transition: all 0.5 ease;
 }
 .black-background {
-  background: #F0324B;
+  background: black;
   color: white;
-  transition: all 0.5 ease;
 }
+.white-background {
+  background: white;
+  color: black;
+}
+/* .red-black-background {
+  animation: red-black 2s forwards;
+}
+.red-white-background {
+  animation: red-white 2s forwards;
+}
+@keyframes red-black {
+  25%  { background: #F0324B; color: white; }
+  75%  { background: #F0324B; color: white; }
+  100% { background: black;   color: white; }
+}
+@keyframes red-white {
+  25%  { background: #F0324B; color: white; }
+  75%  { background: #F0324B; color: white; }
+  100% { background: white;   color: black; }
+} */
 
 .time {
   display: block;

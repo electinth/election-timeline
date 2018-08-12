@@ -1,7 +1,7 @@
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
   const election_date = document.getElementById("election_date");
-  const counter = document.getElementById("counter");
+  const counter = document.getElementById("counter").getElementsByTagName("h2")[0];
 
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
@@ -53,8 +53,13 @@ d3.csv("elections.csv", function(data) {
     //       .style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
     // }
 
-    timeline.classed("red-background", data[index].election_date === "");
-    election_date.innerHTML = data[index].election_date || "ไม่ปรากฏ";
+    timeline.classed("white-background", data[index].election_date !== "");
+    timeline.classed("red-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) !== "");
+    timeline.classed("black-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) === "");
+    
+    election_date.style.color = (data[index].election_date === "")? "white" : "black";
+    election_date.getElementsByTagName("h3")[0].innerHTML = data[index].election_date || "ไม่ปรากฏ";
+
     counter.innerHTML = data[index].days;
 
     // console.log("step " + index + " enter");
