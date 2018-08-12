@@ -5,7 +5,7 @@ function diffDays(fromMs, toMs) {
 
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
-  const election_date = document.getElementById("election_date");
+  const electionDate = document.getElementById("election-date");
   const counter = document.getElementById("counter");
 
   let dates = [];
@@ -26,58 +26,20 @@ d3.csv("elections.csv", function(data) {
       "</div><div class='title'>" +
       data[i].event +
       "</div>";
-    // if (data[i].link) {
-    //   htmlString += "<a href='" + data[i].link + "'>" + data[i].name + "</a>";
-    // } else {
-    //   htmlString += data[i].name;
-    // }
-    // htmlString += "</div>";
-    // if (data[i].type.indexOf("coup") >= 0) {
-    //   for (let j = 0; j < coup.length; j++) {
-    //     if (coup[j].id === data[i].coup_id) {
-    //       htmlString += "<div class='text'>โดย " + coup[j].by + "<br />สมัย " + coup[j].to + "</div>";
-    //       break;
-    //     }
-    //   }
-    // }
-    // htmlString += "</div>";
     item.innerHTML = htmlString;
 
     list.insertAdjacentElement("beforeend", item);
   }
 
   const timeline = d3.select(".timeline");
-  // const fixedPart = timeline.select(".fixed");
-  // fixedPart.style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
+  const hand = d3.select("#hand");
+  const box = d3.select("#box");
+  hand.style("top", "270px");
+  box.style("top", "320px");
 
-  function handleStepEnter(index) {
-    // if (data[index].name.substring(0, 9) === "รัฐประหาร") {
-    //   fixedPart
-    //     .transition()
-    //       .duration(2000)
-    //       .ease(d3.easeQuadIn)
-    //       .style("bottom", "50px")
-    //     .transition()
-    //       .duration(500)
-    //       .ease(d3.easeQuadOut)
-    //       .style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
-    // }
-
-    timeline.classed("white-background", data[index].election_date !== "");
-    timeline.classed("red-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) !== "");
-    timeline.classed("black-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) === "");
-
-    election_date.style.color = (data[index].election_date === "")? "white" : "black";
-    election_date.getElementsByClassName("text")[0].innerHTML = data[index].election_date || "ไม่ปรากฏ";
-
-    // counter.getElementsByClassName("text")[0].innerHTML = data[index].days;
-
-    // console.log("step " + index + " enter");
-    // console.log(data[index].date);
-  }
-  function handleStepLeave(index) {
-    // console.log("step " + index + " exit");
-  }
+  const miniScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([30, (window.innerHeight || document.documentElement.clientHeight) - 100]);
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
@@ -89,12 +51,20 @@ d3.csv("elections.csv", function(data) {
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
+        // triggerHook: "onEnter",
         duration: height
   		})
       // .setPin("#trigger1")
       // .setClassToggle("#animate1", "zap")
-  		.on("enter", function(e) { handleStepEnter(i); })
-      .on("leave", function(e) { handleStepLeave(i); })
+  		.on("enter", function(e) {
+        timeline.classed("white-background", data[i].election_date_text !== "");
+        timeline.classed("red-background", data[i].election_date_text === "" && ((i > 0)? data[i-1].election_date_text : undefined) !== "");
+        timeline.classed("black-background", data[i].election_date_text === "" && ((i > 0)? data[i-1].election_date_text : undefined) === "");
+
+        electionDate.style.color = (data[i].election_date_text === "")? "white" : "black";
+        electionDate.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
+      })
+      // .on("leave", function(e) { handleStepLeave(i); })
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
   }
@@ -104,12 +74,24 @@ d3.csv("elections.csv", function(data) {
       triggerElement: steps[0],
       duration: heightSum
     })
-    .on("enter leave", function(e) {
-      election_date.classList.toggle("shown");
-      counter.classList.toggle("shown");
+    .on("enter", function(e) {
+      electionDate.classList.add("shown");
+      counter.classList.add("shown");
+
+      box.style("top", "unset");
+      box.style("bottom", "30px");
+    })
+    .on("leave", function(e) {
+      electionDate.classList.remove("shown");
+      counter.classList.remove("shown");
+
+      hand.style("top", "270px");
+      box.style("top", "320px");
     })
     .on("progress", function(e) {
       counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
+
+      hand.style("top", miniScale(e.progress));
     })
     .addTo(controller);
 });
