@@ -1,18 +1,23 @@
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
+  const election_date = document.getElementById("election_date");
+  const counter = document.getElementById("counter");
+
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
     item.className = "step in-view";
     item.setAttribute("id", "trigger" + i)
-    // if (data[i].type.indexOf("coup") >= 0) {
-    //   item.className += " last";
-    // }
+    if (data[i].election_date === "") {
+      item.className += " red-box";
+    } else {
+      item.className += " white-box";
+    }
 
     let htmlString = "<div>";
     let dateObject = new Date(data[i].date);
-    dateObject.setFullYear(dateObject.getFullYear() - 543);
+    // dateObject.setFullYear(dateObject.getFullYear() - 543);
     htmlString += "<div class='time'>" +
-      dateObject.toLocaleDateString("th-u-ca-buddhist", {"weekday":"long","year":"numeric","month":"short","day":"numeric"}) +
+      dateObject.toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
       "</div><div class='title'>" +
       data[i].event +
       "</div>";
@@ -53,6 +58,9 @@ d3.csv("elections.csv", function(data) {
     //       .ease(d3.easeQuadOut)
     //       .style("bottom", (window.innerHeight || document.documentElement.clientHeight) / 2);
     // }
+
+    election_date.innerHTML = data[index].election_date || "ไม่ปรากฏ";
+    counter.innerHTML = data[index].days;
 
     // console.log("step " + index + " enter");
     // console.log(data[index].date);

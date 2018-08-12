@@ -1,30 +1,22 @@
+@import url(NotoSansThaiUI-webfonts/stylesheet.css);
+
 .timeline {
   position: relative;
 }
-.bottom {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  margin-left: -140px;
-}
 .fixed {
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  bottom: auto; */
-  position: -webkit-sticky;
-	position: sticky;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  margin-left: -140px;
-  /* transition: all 1s; */
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  position: fixed;
+  left: 50%;
+  /* width: 50px; */
 }
+.circle {
+  border: 0;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
+
 .scrolling {
   /* padding: 0 1rem;
   max-width: 30rem; */
@@ -47,7 +39,7 @@
 }
 
 body {
-  font: normal 14px 'Athiti', sans-serif;
+  font: normal 16px 'Noto Sans Thai UI', sans-serif;
   color: black;
   /* color: white; */
   overflow-x: hidden;
@@ -58,10 +50,10 @@ body {
 
 a:link, a:visited, a:active {
   text-decoration: none;
-  color: #ED354F;
+  color: #F0324B;
 }
 a:hover {
-  color: #ED354F;
+  color: #F0324B;
 }
 
 /* INTRO */
@@ -77,26 +69,24 @@ a:hover {
 }
 
 h1 {
-  font-size: 42px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 45px;
 }
 h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
-  /* margin: -0.5em 0 1em 0; */
+}
+h3 {
+  font-size: 12px;
+  font-weight: 500;
 }
 h4 {
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 300;
 }
 .highlight {
-  color: #ED354F;
-}
-.bold {
-  font-weight: 700;
-}
-.tight {
-  margin: -0.6em 0 -0.3em 0;
+  color: #F0324B;
 }
 .centered {
   text-align: center;
@@ -113,10 +103,8 @@ h4 {
   list-style-type: none;
   position: relative;
   width: 320px;
+  height: 100vh;
   margin: 0 auto;
-  /* padding-top: 50px; */
-  /* background: #ED354F; */
-  /* background: #54EDF5; */
 }
 
 .timeline ul li::before, .timeline ul li::after {
@@ -137,27 +125,38 @@ h4 {
   position: relative;
   bottom: 0;
   width: 320px;
+  height: 100%;
   padding: 15px;
-  padding-left: 40px;
-  background: #EFEFEF;
-  color: #4A4A4A;
-  /*box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);*/
+}
+.white-box {
+  background: white;
+  color: black;
+}
+.red-box {
+  background: #F0324B;
+  color: white;
 }
 
 .time {
   display: block;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: bold;
   line-height: 24px;
+  /* text-align: center; */
+  margin: 2em 0 2em 60px;
 }
 /* .title, .text, .status {
   width: 60%;
 } */
 .title {
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 24px;
+  /* text-align: center;
+  width: 60%;
+  margin: 2em auto; */
+  margin: 2em 0 2em 60px;
 }
 /* .text, .status {
   display: block;
