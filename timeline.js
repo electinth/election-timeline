@@ -1,7 +1,7 @@
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
   const election_date = document.getElementById("election_date");
-  const counter = document.getElementById("counter").getElementsByTagName("h2")[0];
+  const counter = document.getElementById("counter");
 
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
@@ -56,11 +56,11 @@ d3.csv("elections.csv", function(data) {
     timeline.classed("white-background", data[index].election_date !== "");
     timeline.classed("red-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) !== "");
     timeline.classed("black-background", data[index].election_date === "" && ((index > 0)? data[index-1].election_date : undefined) === "");
-    
-    election_date.style.color = (data[index].election_date === "")? "white" : "black";
-    election_date.getElementsByTagName("h3")[0].innerHTML = data[index].election_date || "ไม่ปรากฏ";
 
-    counter.innerHTML = data[index].days;
+    election_date.style.color = (data[index].election_date === "")? "white" : "black";
+    election_date.getElementsByClassName("text")[0].innerHTML = data[index].election_date || "ไม่ปรากฏ";
+
+    counter.getElementsByClassName("text")[0].innerHTML = data[index].days;
 
     // console.log("step " + index + " enter");
     // console.log(data[index].date);
@@ -71,10 +71,15 @@ d3.csv("elections.csv", function(data) {
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
+  let heightSum = 0;
+  let height;
   for (let i = 0; i < steps.length; i++) {
+    height = steps[i].getBoundingClientRect().height;
+    heightSum += height;
+
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
-        duration: steps[i].getBoundingClientRect().height
+        duration: height
   		})
       // .setPin("#trigger1")
       // .setClassToggle("#animate1", "zap")
@@ -83,4 +88,15 @@ d3.csv("elections.csv", function(data) {
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
   }
+
+  // display election date and counter
+  new ScrollMagic.Scene({
+      triggerElement: steps[0],
+      duration: heightSum
+    })
+    .on("enter leave", function(e) {
+      election_date.classList.toggle("shown");
+      counter.classList.toggle("shown");
+    })
+    .addTo(controller);
 });
