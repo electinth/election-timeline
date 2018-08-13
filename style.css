@@ -19,19 +19,6 @@
   padding: 5px;
 }
 
-.scrolling {
-  /* padding: 0 1rem;
-  max-width: 30rem; */
-}
-.step {
-  /* opacity: 0;
-  padding: 1rem; */
-}
-.step.is-active {
-  /* opacity: 1; */
-}
-
-
 *,
 *::before,
 *::after {
