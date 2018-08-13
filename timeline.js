@@ -64,13 +64,36 @@ d3.csv("elections.csv", function(data) {
   const steps = document.querySelectorAll("li.step");
   // let heightSum = 0;
   // let height;
+
+  let progress = function(e) {
+    counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
+
+    hand.style("top", miniScale(days*e.progress));
+
+    for(let j = 1; j < heightSums.length; j++) {
+      if (e.progress < heightSums[j]/heightSums[heightSums.length-1]) {
+        if (boxPos[j-1] < 0) {
+          box.style("filter", "blur(5px)");
+          box.style("opacity", 0);
+        } else {
+          box.style("top", miniScale(boxPos[j-1]));
+          box.style("filter", "unset");
+          box.style("opacity", 1);
+        }
+        break;
+      }
+    }
+  };
+  // let throttledProgress = _.throttle(progress, 100);
+  // let debouncedProgress = _.debounce(progress, 100, { leading: true });
+
   for (let i = 0; i < steps.length; i++) {
     // height = steps[i].getBoundingClientRect().height;
     // heightSum += height;
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
-        // triggerHook: "onEnter",
+        triggerHook: 0.75,
         duration: heights[i] //height
   		})
       // .setPin("#trigger1")
@@ -91,13 +114,12 @@ d3.csv("elections.csv", function(data) {
   // display election date and counter
   new ScrollMagic.Scene({
       triggerElement: steps[0],
+      triggerHook: 0.75,
       duration: heightSums[steps.length-1] //heightSum
     })
     .on("enter", function(e) {
       electionDateText.classList.add("shown");
       counter.classList.add("shown");
-
-      // box.style("top", miniScale(expectedDays));
     })
     .on("leave", function(e) {
       electionDateText.classList.remove("shown");
@@ -108,24 +130,6 @@ d3.csv("elections.csv", function(data) {
       box.style("opacity", 1);
       box.style("top", "320px");
     })
-    .on("progress", function(e) {
-      counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
-
-      hand.style("top", miniScale(days*e.progress));
-
-      for(let j = 1; j < heightSums.length; j++) {
-        if (e.progress < heightSums[j]/heightSums[heightSums.length-1]) {
-          if (boxPos[j-1] < 0) {
-            box.style("filter", "blur(5px)");
-            box.style("opacity", 0);
-          } else {
-            box.style("top", miniScale(boxPos[j-1]));
-            box.style("filter", "unset");
-            box.style("opacity", 1);
-          }
-          break;
-        }
-      }
-    })
+    .on("progress", progress)
     .addTo(controller);
 });

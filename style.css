@@ -90,11 +90,11 @@ h4 {
 #counter .text {
   font-family: 'Libre Baskerville', serif
 }
-#election_date, #counter {
+.status {
   visibility: hidden;
   opacity: 0;
 }
-#election_date.shown, #counter.shown {
+.status.shown {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s ease;
