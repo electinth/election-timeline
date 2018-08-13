@@ -30,11 +30,9 @@
 body {
   font: normal 16px 'Noto Sans Thai UI', 'Noto Sans', sans-serif;
   color: black;
-  /* color: white; */
   overflow-x: hidden;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
   background-color: white;
-  /* background-color: #4a4a4a; */
 }
 
 a:link, a:visited, a:active {

@@ -70,13 +70,13 @@ d3.csv("elections.csv", function(data) {
 
     hand.style("top", miniScale(days*e.progress));
 
-    for(let j = 1; j < heightSums.length; j++) {
+    for(let j = 0; j < heightSums.length; j++) {
       if (e.progress < heightSums[j]/heightSums[heightSums.length-1]) {
-        if (boxPos[j-1] < 0) {
+        if (boxPos[j] < 0) {
           box.style("filter", "blur(5px)");
           box.style("opacity", 0);
         } else {
-          box.style("top", miniScale(boxPos[j-1]));
+          box.style("top", miniScale(boxPos[j]));
           box.style("filter", "unset");
           box.style("opacity", 1);
         }
