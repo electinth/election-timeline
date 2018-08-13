@@ -5,31 +5,37 @@ function diffDays(fromMs, toMs) {
 
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
-  const electionDate = document.getElementById("election-date");
+  const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
 
   let dates = [];
+  let electionDates = [];
+  let boxPos = []; // election box positions (culmulative days)
   for(let i = 0; i < data.length; i++) {
     dates.push(new Date(data[i].date));
+    electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
+    boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
   }
-  const days = diffDays(dates[0].getTime(), Date.now());
+  const now = Date.now();
+  const days = diffDays(dates[0].getTime(), now);
 
-  //find the latest election date
+  // find the latest election date
   let expectedDays = -1;
   for(let i = data.length-1; i >= 0; i--) {
-    if (data[i].election_date) {
-       expectedDays = diffDays(dates[0].getTime(), (new Date(data[i].election_date)).getTime());
+    if (electionDates[i]) {
+       expectedDays = diffDays(dates[0].getTime(), electionDates[i].getTime());
        break;
     }
   }
 
+  let heights = [];
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
     item.className = "step in-view";
-    item.setAttribute("id", "trigger" + i)
+    item.setAttribute("id", "trigger" + i);
 
-    const height = diffDays(dates[i].getTime(), (i < data.length-1)? dates[i+1].getTime() : Date.now())*pixelsPerDay + "px";
-    let htmlString = "<div style='height:" + height + ";'>";
+    heights.push(diffDays(dates[i].getTime(), (i < data.length-1)? dates[i+1].getTime() : now)*pixelsPerDay);
+    let htmlString = "<div style='height:" + heights[i] + "px;'>";
     htmlString += "<div class='time'>" +
       dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
       "</div><div class='title'>" +
@@ -39,6 +45,9 @@ d3.csv("elections.csv", function(data) {
 
     list.insertAdjacentElement("beforeend", item);
   }
+
+  let heightSums = [];
+  heights.reduce(function(a, b, i) { return heightSums[i] = a + b; }, 0);
 
   const timeline = d3.select(".timeline");
   const hand = d3.select("#hand");
@@ -53,16 +62,16 @@ d3.csv("elections.csv", function(data) {
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
-  let heightSum = 0;
-  let height;
+  // let heightSum = 0;
+  // let height;
   for (let i = 0; i < steps.length; i++) {
-    height = steps[i].getBoundingClientRect().height;
-    heightSum += height;
+    // height = steps[i].getBoundingClientRect().height;
+    // heightSum += height;
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
         // triggerHook: "onEnter",
-        duration: height
+        duration: heights[i] //height
   		})
       // .setPin("#trigger1")
       // .setClassToggle("#animate1", "zap")
@@ -71,8 +80,8 @@ d3.csv("elections.csv", function(data) {
         timeline.classed("red-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) !== "");
         timeline.classed("black-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) === "");
 
-        electionDate.style.color = (data[i].election_date_text === "")? "white" : "black";
-        electionDate.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
+        electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
+        electionDateText.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
       })
       // .on("leave", function(e) { handleStepLeave(i); })
   		.addIndicators() // debug (requires plugin)
@@ -82,25 +91,41 @@ d3.csv("elections.csv", function(data) {
   // display election date and counter
   new ScrollMagic.Scene({
       triggerElement: steps[0],
-      duration: heightSum
+      duration: heightSums[steps.length-1] //heightSum
     })
     .on("enter", function(e) {
-      electionDate.classList.add("shown");
+      electionDateText.classList.add("shown");
       counter.classList.add("shown");
 
-      box.style("top", miniScale(expectedDays));
+      // box.style("top", miniScale(expectedDays));
     })
     .on("leave", function(e) {
-      electionDate.classList.remove("shown");
+      electionDateText.classList.remove("shown");
       counter.classList.remove("shown");
 
       hand.style("top", "270px");
+      box.style("filter", "unset");
+      box.style("opacity", 1);
       box.style("top", "320px");
     })
     .on("progress", function(e) {
       counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
 
       hand.style("top", miniScale(days*e.progress));
+
+      for(let j = 1; j < heightSums.length; j++) {
+        if (e.progress < heightSums[j]/heightSums[heightSums.length-1]) {
+          if (boxPos[j-1] < 0) {
+            box.style("filter", "blur(5px)");
+            box.style("opacity", 0);
+          } else {
+            box.style("top", miniScale(boxPos[j-1]));
+            box.style("filter", "unset");
+            box.style("opacity", 1);
+          }
+          break;
+        }
+      }
     })
     .addTo(controller);
 });

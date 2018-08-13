@@ -96,14 +96,19 @@ h4 {
 }
 #election_date.shown, #counter.shown {
   visibility: visible;
-  opacity: 100;
+  opacity: 1;
   transition: opacity 1s ease;
 }
 
 .mini-timeline {
   margin-left: -140px;
-  top: 270px;
   transition: all 1s ease;
+}
+#hand {
+  top: 270px;
+}
+#box {
+  top: 320px;
 }
 
 /* TIMELINE */
