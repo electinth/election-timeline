@@ -92,7 +92,7 @@ h4 {
   visibility: hidden;
   opacity: 0;
 }
-.status.shown {
+.status.shown, svg.mini-timeline.shown {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s ease;
@@ -101,6 +101,25 @@ h4 {
 .mini-timeline {
   margin-left: -140px;
   transition: all 1s ease;
+  width: 40px;
+}
+svg.mini-timeline {
+  margin-left: -120px;
+  width: 20px;
+  visibility: hidden;
+  opacity: 0;
+}
+.timeline-line {
+  fill: none;
+  stroke: white;
+  stroke-width: 1.5;
+  stroke-dasharray: 5,5;
+}
+.gray-line {
+  stroke: #9B9B9B;;
+}
+.white-line {
+  stroke: white;;
 }
 #hand {
   top: 270px;

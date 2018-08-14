@@ -8,11 +8,14 @@ d3.csv("elections.csv", function(data) {
   const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
 
+  // prepare date data
   let dates = [];
+  let diffDates = [];
   let electionDates = [];
   let boxPos = []; // election box positions (culmulative days)
   for(let i = 0; i < data.length; i++) {
     dates.push(new Date(data[i].date));
+    diffDates.push(diffDays(dates[0].getTime(), dates[i].getTime()));
     electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
     boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
   }
@@ -27,7 +30,9 @@ d3.csv("elections.csv", function(data) {
        break;
     }
   }
+  diffDates.push(expectedDays);
 
+  // add <li> based on data
   let heights = [];
   for(let i = 0; i < data.length; i++) {
     let item = document.createElement("li");
@@ -60,6 +65,24 @@ d3.csv("elections.csv", function(data) {
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
 
+  // d3 timeline
+  let diffDatePairs = [];
+  for(let j = 0; j < diffDates.length-1; j++) {
+    diffDatePairs.push([diffDates[j], diffDates[j+1]]);
+  }
+  const svg = d3.select("svg")
+    .attr("height", miniScale(expectedDays))
+    .style("top", 0);
+  const line = svg.append("g")
+      .selectAll("timeline-line")
+      .data(diffDatePairs)
+    .enter().append("path")
+      .attr("class", "timeline-line")
+      .attr("d", d3.line()
+        .x(function() { return 0; })
+        .y(function(d) { return miniScale(d); })
+      );
+
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
   // let heightSum = 0;
@@ -87,6 +110,7 @@ d3.csv("elections.csv", function(data) {
   // let throttledProgress = _.throttle(progress, 100);
   // let debouncedProgress = _.debounce(progress, 100, { leading: true });
 
+  // add scrolling events
   for (let i = 0; i < steps.length; i++) {
     // height = steps[i].getBoundingClientRect().height;
     // heightSum += height;
@@ -102,6 +126,9 @@ d3.csv("elections.csv", function(data) {
         timeline.classed("white-background", data[i].election_date_text);
         timeline.classed("red-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) !== "");
         timeline.classed("black-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) === "");
+
+        line.classed("gray-line", data[i].election_date_text);
+        line.classed("white-line", !data[i].election_date_text);
 
         electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
         electionDateText.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
@@ -120,10 +147,12 @@ d3.csv("elections.csv", function(data) {
     .on("enter", function(e) {
       electionDateText.classList.add("shown");
       counter.classList.add("shown");
+      svg.classed("shown", true);
     })
     .on("leave", function(e) {
       electionDateText.classList.remove("shown");
       counter.classList.remove("shown");
+      svg.classed("shown", false);
 
       hand.style("top", "270px");
       box.style("filter", "unset");
@@ -132,4 +161,5 @@ d3.csv("elections.csv", function(data) {
     })
     .on("progress", progress)
     .addTo(controller);
+
 });
