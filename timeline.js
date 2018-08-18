@@ -1,4 +1,4 @@
-const pixelsPerDay = 10;
+const pixelsPerDay = 20;
 function diffDays(fromMs, toMs) {
   return (toMs - fromMs) / 1000 / 60 / 60 / 24;
 }
@@ -125,9 +125,15 @@ d3.csv("elections.csv", function(data) {
       // .setPin(steps[i])
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
-        timeline.classed("white-background", data[i].election_date_text);
-        timeline.classed("red-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) !== "");
-        timeline.classed("black-background", !data[i].election_date_text && ((i > 0)? data[i-1].election_date_text : undefined) === "");
+        let whiteCond = data[i].election_date_text;
+        let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
+        // let whiteNextCond = data[i+1].election_date_text;
+
+        timeline.classed("white-background",  whiteCond);
+        timeline.classed("black-background", !whiteCond && blackCond);
+        timeline.classed("red-background", !whiteCond && !blackCond)
+        // timeline.classed("red-white-background", !whiteCond && !blackCond &&  whiteNextCond);
+        // timeline.classed("red-black-background", !whiteCond && !blackCond && !whiteNextCond);
 
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);

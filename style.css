@@ -205,10 +205,10 @@ svg.mini-timeline {
   color: black;
 }
 /* .red-black-background {
-  animation: red-black 2s forwards;
+  animation: red-black 4s forwards;
 }
 .red-white-background {
-  animation: red-white 2s forwards;
+  animation: red-white 4s forwards;
 }
 @keyframes red-black {
   25%  { background: #F0324B; color: white; }
