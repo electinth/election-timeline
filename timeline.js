@@ -4,7 +4,6 @@ function diffDays(fromMs, toMs) {
 }
 
 d3.csv("elections.csv", function(data) {
-  const intro = d3.select(".intro"); //document.getElementsByClassName("intro")[0];
   const list = document.getElementsByTagName("ul")[0];
   const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
@@ -115,6 +114,8 @@ d3.csv("elections.csv", function(data) {
   for (let i = 0; i < steps.length; i++) {
     // height = steps[i].getBoundingClientRect().height;
     // heightSum += height;
+    let time = steps[i].getElementsByClassName("time")[0];
+    let title = steps[i].getElementsByClassName("title")[0];
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
@@ -131,6 +132,9 @@ d3.csv("elections.csv", function(data) {
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);
 
+        time.classList.add("shown");
+        title.classList.add("shown");
+
         // electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
         if (data[i].election_date_text === "") {
           electionDateText.classList.remove("black");
@@ -139,12 +143,16 @@ d3.csv("elections.csv", function(data) {
         }
         electionDateText.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
       })
-      // .on("leave", function(e) { handleStepLeave(i); })
+      .on("leave", function(e) {
+        time.classList.remove("shown");
+        title.classList.remove("shown");
+      })
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
   }
 
   // fade intro
+  const intro = d3.select(".intro"); //document.getElementsByClassName("intro")[0];
   new ScrollMagic.Scene({
       triggerElement: steps[0],
       triggerHook: 0.75

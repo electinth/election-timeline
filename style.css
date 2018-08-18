@@ -4,7 +4,7 @@
   top: 100vh;
   position: relative;
   background: white;
-  transition: all 0.5s ease;
+  transition: all 1s ease;
 }
 .fixed {
   position: fixed;
@@ -105,7 +105,7 @@ h4 {
 .status.shown, svg.mini-timeline.shown {
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s ease 1s;
+  transition: opacity 1s ease 2s;
 }
 #election-date {
   bottom: 30px;
@@ -159,6 +159,7 @@ svg.mini-timeline {
 }
 #box {
   top: 320px;
+  transition: top 1s ease 1s;
 }
 
 /* TIMELINE */
@@ -220,28 +221,31 @@ svg.mini-timeline {
   100% { background: white;   color: black; }
 } */
 
-.time {
+.time, .title {
   display: block;
   font-size: 16px;
-  font-weight: bold;
   line-height: 24px;
-  /* text-align: center; */
   margin: 2em 50px;
   text-align: center;
+
+  visibility: hidden;
+  opacity: 0;
 }
-/* .title, .text, .status {
-  width: 60%;
-} */
+.time {
+  font-weight: bold;
+}
 .title {
-  display: block;
-  font-size: 16px;
   font-weight: 300;
-  line-height: 24px;
-  /* text-align: center;
-  width: 60%;
-  margin: 2em auto; */
-  margin: 2em 50px;
-  text-align: center;
+}
+.title.shown, .time.shown {
+  visibility: visible;
+  opacity: 1;
+}
+.time.shown {
+  transition: opacity 1s ease;
+}
+.title.shown {
+  transition: opacity 1s ease 1s;
 }
 /* .text, .status {
   display: block;
