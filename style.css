@@ -1,6 +1,7 @@
 @import url(NotoSansThaiUI-webfonts/stylesheet.css);
 
 .timeline {
+  top: 100vh;
   position: relative;
   background: white;
   transition: all 0.5s ease;
@@ -47,6 +48,15 @@ a:hover {
 .intro, .article {
   padding: 15px;
   height: 100vh;
+}
+.intro {
+  margin-left: -160px;
+  z-index: -1;
+  transition: all 1s ease;
+}
+.article {
+  margin-top: 100vh;
+  background-color: white;
 }
 .container {
   width: 100%;
@@ -95,7 +105,7 @@ h4 {
 .status.shown, svg.mini-timeline.shown {
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s ease;
+  transition: opacity 1s ease 1s;
 }
 #election-date {
   bottom: 30px;

@@ -4,7 +4,7 @@ function diffDays(fromMs, toMs) {
 }
 
 d3.csv("elections.csv", function(data) {
-  const intro = document.getElementById("intro");
+  const intro = d3.select(".intro"); //document.getElementsByClassName("intro")[0];
   const list = document.getElementsByTagName("ul")[0];
   const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
@@ -121,7 +121,7 @@ d3.csv("elections.csv", function(data) {
         triggerHook: 0.75,
         duration: heights[i] //height
   		})
-      // .setPin("#trigger1")
+      // .setPin(steps[i])
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
         timeline.classed("white-background", data[i].election_date_text);
@@ -143,6 +143,22 @@ d3.csv("elections.csv", function(data) {
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
   }
+
+  // fade intro
+  new ScrollMagic.Scene({
+      triggerElement: steps[0],
+      triggerHook: 0.75
+    })
+    .on("enter", function(e) {
+      intro.style("filter", "blur(5px)");
+      intro.style("opacity", 0);
+    })
+    .on("leave", function(e) {
+      intro.style("filter", "unset");
+      intro.style("opacity", 1);
+    })
+    .addIndicators()
+    .addTo(controller);
 
   // display election date and counter
   new ScrollMagic.Scene({
