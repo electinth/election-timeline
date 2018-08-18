@@ -97,6 +97,29 @@ h4 {
   opacity: 1;
   transition: opacity 1s ease;
 }
+#election-date {
+  bottom: 30px;
+  width: 320px;
+  margin-left: -160px;
+  text-align: center;
+  color: white;
+}
+#election-date::before {
+  display: block;
+  content: "";
+  border-top: 1px solid white;
+  width: 60%;
+  transform: translateY(-1em);
+  margin: 0 auto;
+}
+#election-date.black, #election-date.black::before {
+  border-color: black;
+  color: black;
+}
+#election-date h4, #election-date h3 {
+  display: inline-block;
+  padding: 0 5px;
+}
 
 .mini-timeline {
   margin-left: -140px;
@@ -116,10 +139,10 @@ svg.mini-timeline {
   stroke-dasharray: 5,5;
 }
 .gray-line {
-  stroke: #9B9B9B;;
+  stroke: #9B9B9B;
 }
 .white-line {
-  stroke: white;;
+  stroke: white;
 }
 #hand {
   top: 270px;
@@ -193,7 +216,8 @@ svg.mini-timeline {
   font-weight: bold;
   line-height: 24px;
   /* text-align: center; */
-  margin: 2em 0 2em 60px;
+  margin: 2em 50px;
+  text-align: center;
 }
 /* .title, .text, .status {
   width: 60%;
@@ -206,7 +230,8 @@ svg.mini-timeline {
   /* text-align: center;
   width: 60%;
   margin: 2em auto; */
-  margin: 2em 0 2em 60px;
+  margin: 2em 50px;
+  text-align: center;
 }
 /* .text, .status {
   display: block;

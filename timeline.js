@@ -4,6 +4,7 @@ function diffDays(fromMs, toMs) {
 }
 
 d3.csv("elections.csv", function(data) {
+  const intro = document.getElementById("intro");
   const list = document.getElementsByTagName("ul")[0];
   const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
@@ -130,7 +131,12 @@ d3.csv("elections.csv", function(data) {
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);
 
-        electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
+        // electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
+        if (data[i].election_date_text === "") {
+          electionDateText.classList.remove("black");
+        } else {
+          electionDateText.classList.add("black");
+        }
         electionDateText.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
       })
       // .on("leave", function(e) { handleStepLeave(i); })
