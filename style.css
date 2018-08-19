@@ -110,11 +110,12 @@ h4 {
 #election-date {
   bottom: 30px;
   width: 320px;
+  height: 30px;
   margin-left: -160px;
-  text-align: center;
+  /* text-align: center; */
   color: white;
 }
-#election-date::before {
+#election-date .section-line {
   display: block;
   content: "";
   border-top: 1px solid white;
@@ -122,13 +123,20 @@ h4 {
   transform: translateY(-1em);
   margin: 0 auto;
 }
-#election-date.black, #election-date.black::before {
+#election-date.black, #election-date.black .section-line {
   border-color: black;
   color: black;
 }
 #election-date h4, #election-date h3 {
-  display: inline-block;
+  position: relative;
   padding: 0 5px;
+  text-align: left;
+}
+#election-date h4 {
+  margin-left: 100px;
+}
+#election-date h3 {
+  margin-left: 150px;
 }
 
 .mini-timeline {

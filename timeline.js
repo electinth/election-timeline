@@ -5,7 +5,6 @@ function diffDays(fromMs, toMs) {
 
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
-  const electionDateText = document.getElementById("election-date");
   const counter = document.getElementById("counter");
 
   // prepare date data
@@ -59,6 +58,7 @@ d3.csv("elections.csv", function(data) {
   const box = d3.select("#box");
   hand.style("top", "270px");
   box.style("top", "320px");
+  const electionDateText = d3.select("#election-date"); //document.getElementById("election-date");
 
   const miniScaleMargins = { top: 20, bottom: 60 };
   const miniScale = d3.scaleLinear()
@@ -141,13 +141,8 @@ d3.csv("elections.csv", function(data) {
         time.classList.add("shown");
         title.classList.add("shown");
 
-        // electionDateText.style.color = (data[i].election_date_text === "")? "white" : "black";
-        if (data[i].election_date_text === "") {
-          electionDateText.classList.remove("black");
-        } else {
-          electionDateText.classList.add("black");
-        }
-        electionDateText.getElementsByClassName("text")[0].innerHTML = data[i].election_date_text || "ไม่ปรากฏ";
+        electionDateText.classed("black", data[i].election_date_text !== "");
+        animateText(electionDateText.select(".text"), data[i].election_date_text || "ไม่ปรากฏ");
       })
       .on("leave", function(e) {
         time.classList.remove("shown");
@@ -181,13 +176,13 @@ d3.csv("elections.csv", function(data) {
       duration: heightSums[steps.length-1] //heightSum
     })
     .on("enter", function(e) {
-      electionDateText.classList.add("shown");
       counter.classList.add("shown");
+      electionDateText.classed("shown", true);
       svg.classed("shown", true);
     })
     .on("leave", function(e) {
-      electionDateText.classList.remove("shown");
       counter.classList.remove("shown");
+      electionDateText.classed("shown", false);
       svg.classed("shown", false);
 
       hand.style("top", "270px");
@@ -199,3 +194,31 @@ d3.csv("elections.csv", function(data) {
     .addTo(controller);
 
 });
+
+function animateText(node, data) {
+  let t = d3.transition()
+    .duration(1000);
+
+  // JOIN new data with old elements.
+  let text = node.selectAll("span")
+    .data([data], function(d) { return d; });
+
+  // EXIT old elements not present in new data.
+  text.exit()
+      .style("top", "-1rem")
+      .style("opacity", 1)
+    .transition(t)
+      .style("top", "2rem")
+      .style("opacity", 0)
+      .remove();
+
+  // ENTER new elements present in new data.
+  text.enter().append("span")
+      .style("position", "absolute")
+      .style("top", "-4rem")
+      .style("opacity", 0)
+      .text(function(d) { return d; })
+    .transition(t)
+      .style("top", "-1rem")
+      .style("opacity", 1);
+}
