@@ -126,12 +126,12 @@ d3.csv("elections.csv", function(data) {
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
         let whiteCond = data[i].election_date_text;
-        let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
+        // let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
         // let whiteNextCond = data[i+1].election_date_text;
 
         timeline.classed("white-background",  whiteCond);
-        timeline.classed("black-background", !whiteCond && blackCond);
-        timeline.classed("red-background", !whiteCond && !blackCond)
+        timeline.classed("black-background", !whiteCond); //!whiteCond && blackCond);
+        // timeline.classed("red-background", !whiteCond && !blackCond)
         // timeline.classed("red-white-background", !whiteCond && !blackCond &&  whiteNextCond);
         // timeline.classed("red-black-background", !whiteCond && !blackCond && !whiteNextCond);
 
@@ -149,6 +149,24 @@ d3.csv("elections.csv", function(data) {
         title.classList.remove("shown");
       })
   		.addIndicators() // debug (requires plugin)
+  		.addTo(controller);
+
+    // add events only for red background
+    new ScrollMagic.Scene({
+  			triggerElement: steps[i],
+        triggerHook: 0.75,
+        duration: 100
+  		})
+  		.on("enter", function(e) {
+        let whiteCond = data[i].election_date_text;
+        let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
+
+        timeline.select(".scrolling").classed("red-background", !whiteCond && !blackCond);
+      })
+      .on("leave", function(e) {
+        timeline.select(".scrolling").classed("red-background", false);
+      })
+  		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
   		.addTo(controller);
   }
 

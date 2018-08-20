@@ -6,6 +6,9 @@
   background: white;
   transition: all 1s ease;
 }
+.timeline .scrolling {
+  transition: all 1s ease;
+}
 .fixed {
   position: fixed;
   left: 50%;
