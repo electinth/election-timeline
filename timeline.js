@@ -112,28 +112,23 @@ d3.csv("elections.csv", function(data) {
 
   // add scrolling events
   for (let i = 0; i < steps.length; i++) {
-    // height = steps[i].getBoundingClientRect().height;
-    // heightSum += height;
     let time = steps[i].getElementsByClassName("time")[0];
     let title = steps[i].getElementsByClassName("title")[0];
+
+    let whiteCond = data[i].election_date_text;
+    let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
         triggerHook: 0.75,
-        duration: heights[i] //height
+        duration: heights[i]
   		})
       // .setPin(steps[i])
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
-        let whiteCond = data[i].election_date_text;
-        // let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
-        // let whiteNextCond = data[i+1].election_date_text;
 
         timeline.classed("white-background",  whiteCond);
-        timeline.classed("black-background", !whiteCond); //!whiteCond && blackCond);
-        // timeline.classed("red-background", !whiteCond && !blackCond)
-        // timeline.classed("red-white-background", !whiteCond && !blackCond &&  whiteNextCond);
-        // timeline.classed("red-black-background", !whiteCond && !blackCond && !whiteNextCond);
+        timeline.classed("black-background", !whiteCond);
 
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);
@@ -152,22 +147,21 @@ d3.csv("elections.csv", function(data) {
   		.addTo(controller);
 
     // add events only for red background
-    new ScrollMagic.Scene({
-  			triggerElement: steps[i],
-        triggerHook: 0.75,
-        duration: 100
-  		})
-  		.on("enter", function(e) {
-        let whiteCond = data[i].election_date_text;
-        let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
-
-        timeline.select(".scrolling").classed("red-background", !whiteCond && !blackCond);
-      })
-      .on("leave", function(e) {
-        timeline.select(".scrolling").classed("red-background", false);
-      })
-  		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
-  		.addTo(controller);
+    if (!whiteCond && !blackCond) {
+      new ScrollMagic.Scene({
+    			triggerElement: steps[i],
+          triggerHook: 0.75,
+          duration: "50%"
+    		})
+    		.on("enter", function(e) {
+          timeline.select(".scrolling").classed("red-background", true);
+        })
+        .on("leave", function(e) {
+          timeline.select(".scrolling").classed("red-background", false);
+        })
+    		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
+    		.addTo(controller);
+    }
   }
 
   // fade intro
