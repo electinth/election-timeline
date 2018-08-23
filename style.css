@@ -207,12 +207,21 @@ svg.mini-timeline {
   background: #F0324B;
   color: white;
 }
+.red-background a {
+  color: white;
+}
 .black-background {
   background: black;
   color: white;
 }
+.black-background a {
+  color: white;
+}
 .white-background {
   background: white;
+  color: black;
+}
+.white-background a {
   color: black;
 }
 /* .red-black-background {
@@ -232,7 +241,7 @@ svg.mini-timeline {
   100% { background: white;   color: black; }
 } */
 
-.time, .title {
+.time, .title, .read-more {
   display: block;
   font-size: 16px;
   line-height: 24px;
@@ -248,14 +257,18 @@ svg.mini-timeline {
 .title {
   font-weight: 300;
 }
-.title.shown, .time.shown {
+.read-more {
+  font-weight: 300;
+  text-decoration: underline;
+}
+.title.shown, .time.shown, .read-more.shown {
   visibility: visible;
   opacity: 1;
 }
 .time.shown {
   transition: opacity 1s ease;
 }
-.title.shown {
+.title.shown, .read-more.shown {
   transition: opacity 1s ease 1s;
 }
 /* .text, .status {

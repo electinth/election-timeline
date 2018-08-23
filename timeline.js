@@ -42,8 +42,9 @@ d3.csv("elections.csv", function(data) {
     let htmlString = "<div style='height:" + heights[i] + "px;'>";
     htmlString += "<div class='time'>" +
       dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
-      "</div><div class='title'>" +
-      data[i].event +
+      "</div>" +
+      "<div class='title'>" + data[i].event + "</div>" +
+      "<div class='read-more'><a href='" + data[i].read_more + "'>อ่านเพิ่ม</a></div>" +
       "</div>";
     item.innerHTML = htmlString;
 
@@ -114,6 +115,7 @@ d3.csv("elections.csv", function(data) {
   for (let i = 0; i < steps.length; i++) {
     let time = steps[i].getElementsByClassName("time")[0];
     let title = steps[i].getElementsByClassName("title")[0];
+    let readMore = steps[i].getElementsByClassName("read-more")[0];
 
     let whiteCond = data[i].election_date_text;
     let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
@@ -135,6 +137,7 @@ d3.csv("elections.csv", function(data) {
 
         time.classList.add("shown");
         title.classList.add("shown");
+        readMore.classList.add("shown");
 
         electionDateText.classed("black", data[i].election_date_text !== "");
         animateText(electionDateText.select(".text"), data[i].election_date_text || "ไม่ปรากฏ");
@@ -142,6 +145,7 @@ d3.csv("elections.csv", function(data) {
       .on("leave", function(e) {
         time.classList.remove("shown");
         title.classList.remove("shown");
+        readMore.classList.add("shown");
       })
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
