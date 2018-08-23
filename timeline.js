@@ -1,4 +1,4 @@
-const pixelsPerDay = 20;
+const pixelsPerDay = 50;
 function diffDays(fromMs, toMs) {
   return (toMs - fromMs) / 1000 / 60 / 60 / 24;
 }
