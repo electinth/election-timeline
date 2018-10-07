@@ -120,8 +120,8 @@ d3.csv("elections.csv", function(data) {
     let title = steps[i].getElementsByClassName("title")[0];
     let readMore = steps[i].getElementsByClassName("read-more")[0];
 
-    let whiteCond = data[i].election_date_text;
-    let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
+    // let whiteCond = data[i].election_date_text;
+    // let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
 
   	new ScrollMagic.Scene({
   			triggerElement: steps[i],
@@ -131,9 +131,10 @@ d3.csv("elections.csv", function(data) {
       // .setPin(steps[i])
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
-
-        timeline.classed("white-background",  whiteCond);
-        timeline.classed("black-background", !whiteCond);
+        timeline.classed('red-background',  false);
+        timeline.classed('white-background',  false);
+        timeline.classed('black-background',  false);
+        timeline.classed(`${data[i].background}-background`,  true);
 
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);
@@ -153,22 +154,22 @@ d3.csv("elections.csv", function(data) {
   		.addIndicators() // debug (requires plugin)
   		.addTo(controller);
 
-    // add events only for red background
-    if (!whiteCond && !blackCond) {
-      new ScrollMagic.Scene({
-    			triggerElement: steps[i],
-          triggerHook: 0.75,
-          duration: "50%"
-    		})
-    		.on("enter", function(e) {
-          timeline.select(".scrolling").classed("red-background", true);
-        })
-        .on("leave", function(e) {
-          timeline.select(".scrolling").classed("red-background", false);
-        })
-    		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
-    		.addTo(controller);
-    }
+    // // add events only for red background
+    // if (!whiteCond && !blackCond) {
+    //   new ScrollMagic.Scene({
+    // 			triggerElement: steps[i],
+    //       triggerHook: 0.75,
+    //       duration: "50%"
+    // 		})
+    // 		.on("enter", function(e) {
+    //       timeline.select(".scrolling").classed("red-background", true);
+    //     })
+    //     .on("leave", function(e) {
+    //       timeline.select(".scrolling").classed("red-background", false);
+    //     })
+    // 		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
+    // 		.addTo(controller);
+    // }
   }
 
   // fade intro
