@@ -341,14 +341,14 @@ svg.mini-timeline {
   background-repeat:no-repeat;
   background-position: center center;
 }
-.workpoint {
+/* .workpoint {
   background-image: url('images/logo_workpoint.png');
   width: 150px;
-}
-.boonmeelab {
+} */
+/* .boonmeelab {
   background-image: url('images/logo_boonmeelab.png');
   width: 200px;
-}
+} */
 .float {
   position: absolute;
   left: 20px;
@@ -390,3 +390,119 @@ svg.mini-timeline {
     width: calc(100vw - 120px);
   }
 } */
+
+/* Animations */
+.wait {
+  height: 162px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes keyframes1 {
+  0%   { background-image: url('images/wait-animate/Asset 1-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 1-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 1-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 1-2@2x.png'); }
+}
+@keyframes keyframes2 {
+  0%   { background-image: url('images/wait-animate/Asset 2-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 2-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 2-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 2-2@2x.png'); }
+}
+@keyframes keyframes3 {
+  0%   { background-image: url('images/wait-animate/Asset 3-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 3-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 3-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 3-2@2x.png'); }
+}
+@keyframes keyframes4 {
+  0%   { background-image: url('images/wait-animate/Asset 4@2x.png'); }
+  /* 50%  { background-image: url('images/wait-animate/Asset 4@2x.png'); } */
+  /* 51%  { background-image: url('images/wait-animate/Asset 4@2x.png'); } */
+  100% { background-image: url('images/wait-animate/Asset 4@2x.png'); }
+}
+@keyframes keyframes5 {
+  0%   { background-image: url('images/wait-animate/Asset 5-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 5-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 5-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 5-2@2x.png'); }
+}
+@keyframes keyframes6 {
+  0%   { background-image: url('images/wait-animate/Asset 6-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 6-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 6-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 6-2@2x.png'); }
+}
+@keyframes keyframes7 {
+  0%   { background-image: url('images/wait-animate/Asset 7-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 7-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 7-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 7-2@2x.png'); }
+}
+@keyframes keyframes8 {
+  0%   { background-image: url('images/wait-animate/Asset 8-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 8-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 8-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 8-2@2x.png'); }
+}
+@keyframes keyframes9 {
+  0%   { background-image: url('images/wait-animate/Asset 9-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 9-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 9-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 9-2@2x.png'); }
+}
+@keyframes keyframes10 {
+  0%   { background-image: url('images/wait-animate/Asset 10-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 10-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 10-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 10-2@2x.png'); }
+}
+@keyframes keyframes11 {
+  0%   { background-image: url('images/wait-animate/Asset 11-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 11-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 11-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 11-2@2x.png'); }
+}
+@keyframes keyframes12 {
+  0%   { background-image: url('images/wait-animate/Asset 12-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 12-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 12-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 12-2@2x.png'); }
+}
+@keyframes keyframes13 {
+  0%   { background-image: url('images/wait-animate/Asset 13-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 13-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 13-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 13-2@2x.png'); }
+}
+@keyframes keyframes14 {
+  0%   { background-image: url('images/wait-animate/Asset 14-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 14-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 14-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 14-2@2x.png'); }
+}
+@keyframes keyframes15 {
+  0%   { background-image: url('images/wait-animate/Asset 15-1@2x.png'); }
+  50%  { background-image: url('images/wait-animate/Asset 15-1@2x.png'); }
+  51%  { background-image: url('images/wait-animate/Asset 15-2@2x.png'); }
+  100% { background-image: url('images/wait-animate/Asset 15-2@2x.png'); }
+}
+#animation1  { animation-name: keyframes1;  }
+#animation2  { animation-name: keyframes2;  }
+#animation3  { animation-name: keyframes3;  }
+#animation4  { animation-name: keyframes4;  }
+#animation5  { animation-name: keyframes5;  }
+#animation6  { animation-name: keyframes6;  }
+#animation7  { animation-name: keyframes7;  }
+#animation8  { animation-name: keyframes8;  }
+#animation9  { animation-name: keyframes9;  }
+#animation10 { animation-name: keyframes10; }
+#animation11 { animation-name: keyframes11; }
+#animation12 { animation-name: keyframes12; }
+#animation13 { animation-name: keyframes13; }
+#animation14 { animation-name: keyframes14; }
+#animation15 { animation-name: keyframes15; }

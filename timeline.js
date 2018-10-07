@@ -40,13 +40,16 @@ d3.csv("elections.csv", function(data) {
 
     heights.push(diffDays(dates[i].getTime(), (i < data.length-1)? dates[i+1].getTime() : now)*pixelsPerDay);
     let htmlString = "<div style='height:" + heights[i] + "px;'>";
-    htmlString += "<div class='time'>" +
-      dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
-      "</div>" +
-      "<div class='title'>" + data[i].event + "</div>" +
-      "<div class='read-more'><a href='" + data[i].read_more + "'>อ่านเพิ่ม</a></div>" +
-      "</div>";
-    item.innerHTML = htmlString;
+    if (data[i].animation) {
+      htmlString += `<div class='wait' id='animation${data[i].animation}'></div>`;
+    } else {
+      htmlString += "<div class='time'>" +
+        dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
+        "</div>" +
+        "<div class='title'>" + data[i].event + "</div>" +
+        "<div class='read-more'><a href='" + data[i].read_more + "'>อ่านเพิ่ม</a></div>";
+    }
+    item.innerHTML = htmlString + '</div>';
 
     list.insertAdjacentElement("beforeend", item);
   }
