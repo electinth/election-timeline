@@ -148,7 +148,7 @@ h4 {
   width: 40px;
 }
 svg.mini-timeline {
-  margin-left: -120px;
+  margin-left: -125px;
   width: 20px;
   visibility: hidden;
   opacity: 0;
@@ -165,12 +165,20 @@ svg.mini-timeline {
 .white-line {
   stroke: white;
 }
+.timeline-icon {
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 #hand {
   top: 270px;
+  background-image: url('images/Hand@2x.png');
 }
 #box {
   top: 320px;
   transition: top 1s ease 1s;
+  background-image: url('images/Box@2x.png');
 }
 
 /* TIMELINE */
@@ -339,7 +347,7 @@ svg.mini-timeline {
   height: 50px;
   background-size: cover;
   background-repeat:no-repeat;
-  background-position: center center;
+  background-position: center;
 }
 /* .workpoint {
   background-image: url('images/logo_workpoint.png');
