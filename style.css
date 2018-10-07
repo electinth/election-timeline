@@ -4,7 +4,7 @@
   top: 100vh;
   position: relative;
   background: white;
-  transition: all 1s ease;
+  /* transition: all 1s ease; */
 }
 .timeline .scrolling {
   transition: all 1s ease;
@@ -249,6 +249,12 @@ svg.mini-timeline {
   100% { background: white;   color: black; }
 } */
 
+.image {
+  height: 150px;
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position: center;
+}
 .time, .title, .read-more {
   display: block;
   font-size: 16px;

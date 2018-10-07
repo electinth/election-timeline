@@ -46,8 +46,9 @@ d3.csv("elections.csv", function(data) {
       htmlString += "<div class='time'>" +
         dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
         "</div>" +
-        "<div class='title'>" + data[i].event + "</div>" +
-        "<div class='read-more'><a href='" + data[i].read_more + "'>อ่านเพิ่ม</a></div>";
+        (data[i].image? `<div class='image' style='background-image: url("images/illustrations/${data[i].image}.png");'></div>` : '') +
+        `<div class='title'>${data[i].event}</div>` +
+        `<div class='read-more'><a href='${data[i].read_more}'>อ่านเพิ่ม</a></div>`;
     }
     item.innerHTML = htmlString + '</div>';
 
