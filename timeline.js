@@ -118,6 +118,7 @@ d3.csv("elections.csv", function(data) {
   // add scrolling events
   for (let i = 0; i < steps.length; i++) {
     let time = steps[i].getElementsByClassName("time")[0];
+    let image = steps[i].getElementsByClassName("image")[0];
     let title = steps[i].getElementsByClassName("title")[0];
     let readMore = steps[i].getElementsByClassName("read-more")[0];
 
@@ -141,6 +142,7 @@ d3.csv("elections.csv", function(data) {
         line.classed("white-line", !data[i].election_date_text);
 
         time.classList.add("shown");
+        image.classList.add("shown");
         title.classList.add("shown");
         readMore.classList.add("shown");
 
@@ -149,10 +151,11 @@ d3.csv("elections.csv", function(data) {
       })
       .on("leave", function(e) {
         time.classList.remove("shown");
+        image.classList.remove("shown");
         title.classList.remove("shown");
         readMore.classList.add("shown");
       })
-  		.addIndicators() // debug (requires plugin)
+  		// .addIndicators() // debug (requires plugin)
   		.addTo(controller);
 
     // // add events only for red background
@@ -187,7 +190,7 @@ d3.csv("elections.csv", function(data) {
       intro.style("filter", "unset");
       intro.style("opacity", 1);
     })
-    .addIndicators()
+    // .addIndicators()
     .addTo(controller);
 
   // display election date and counter

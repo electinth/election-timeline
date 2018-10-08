@@ -3,7 +3,7 @@
 .timeline {
   top: 100vh;
   position: relative;
-  background: white;
+  background: #F0324B;;
   /* transition: all 1s ease; */
 }
 .timeline .scrolling {
@@ -40,11 +40,12 @@ body {
 }
 
 a:link, a:visited, a:active {
-  text-decoration: none;
   color: #F0324B;
+  text-decoration: none;
 }
 a:hover {
   color: #F0324B;
+  text-decoration: underline;
 }
 
 /* INTRO */
@@ -54,7 +55,7 @@ a:hover {
 }
 .intro {
   margin-left: -160px;
-  z-index: -1;
+  /* z-index: -1; */
   transition: all 1s ease;
 }
 .article {
@@ -291,7 +292,7 @@ svg.mini-timeline {
 .time.shown {
   transition: opacity 1s ease;
 }
-.title.shown, .read-more.shown {
+.image.shown, .title.shown, .read-more.shown {
   transition: opacity 1s ease 1s;
 }
 /* .text, .status {
