@@ -212,21 +212,30 @@ svg.mini-timeline {
   padding: 15px;
 }
 .red-background {
-  background: #F0324B;
+  background: #F0324B linear-gradient(transparent 90%, #9B9B9B 100%);
+  background-size: 5px 10px;
+  background-repeat: repeat-y;
+  background-position: right;
   color: white;
 }
 .red-background a {
   color: white;
 }
 .black-background {
-  background: black;
+  background: black linear-gradient(transparent 90%, #9B9B9B 100%);
+  background-size: 5px 10px;
+  background-repeat: repeat-y;
+  background-position: right;
   color: white;
 }
 .black-background a {
   color: white;
 }
 .white-background {
-  background: white;
+  background: white linear-gradient(transparent 90%, #9B9B9B 100%);
+  background-size: 5px 10px;
+  background-repeat: repeat-y;
+  background-position: right;
   color: black;
 }
 .white-background a {
