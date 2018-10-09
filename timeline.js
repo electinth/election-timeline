@@ -16,9 +16,9 @@ d3.csv("elections.csv", function(data) {
     dates.push(new Date(data[i].date));
     if (!data[i].animation) {
       diffDates.push(diffDays(dates[0].getTime(), dates[i].getTime()));
+      electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
+      boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
     }
-    electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
-    boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
   }
   const now = Date.now();
   const days = diffDays(dates[0].getTime(), now);
@@ -67,7 +67,7 @@ d3.csv("elections.csv", function(data) {
   box.style("top", "320px");
   const electionDateText = d3.select("#election-date"); //document.getElementById("election-date");
 
-  const miniScaleMargins = { top: 20, bottom: 60 };
+  const miniScaleMargins = { top: 50, bottom: 60 };
   const miniScale = d3.scaleLinear()
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
@@ -104,7 +104,7 @@ d3.csv("elections.csv", function(data) {
   let progress = function(e) {
     counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
 
-    hand.style("top", miniScale(days*e.progress));
+    hand.style("top", miniScale(days*e.progress) - 30);
 
     for(let j = 0; j < heightSums.length; j++) {
       if (e.progress < heightSums[j]/heightSums[heightSums.length-1]) {
@@ -146,17 +146,17 @@ d3.csv("elections.csv", function(data) {
         timeline.classed('black-background',  false);
         timeline.classed(`${data[i].background}-background`,  true);
 
-        line.classed("gray-line", data[i].election_date_text);
-        line.classed("white-line", !data[i].election_date_text);
-        mark.classed("gray-line", data[i].election_date_text);
-        mark.classed("white-line", !data[i].election_date_text);
+        line.classed("gray-line", data[i].background === "white");
+        line.classed("white-line", data[i].background !== "white");
+        mark.classed("gray-line", data[i].background === "white");
+        mark.classed("white-line", data[i].background !== "white");
 
         time.classList.add("shown");
         image.classList.add("shown");
         title.classList.add("shown");
         readMore.classList.add("shown");
 
-        electionDateText.classed("black", data[i].election_date_text !== "");
+        electionDateText.classed("black", data[i].background !== "black");
         animateText(electionDateText.select(".text"), data[i].election_date_text || "ไม่ปรากฏ");
       })
       .on("leave", function(e) {

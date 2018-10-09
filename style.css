@@ -158,7 +158,7 @@ svg.mini-timeline {
   fill: none;
   stroke: white;
   stroke-width: 1;
-  stroke-dasharray: 5,5;
+  /* stroke-dasharray: 5,5; */
 }
 .timeline-mark {
   stroke-width: 1;
