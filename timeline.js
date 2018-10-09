@@ -14,7 +14,9 @@ d3.csv("elections.csv", function(data) {
   let boxPos = []; // election box positions (culmulative days)
   for(let i = 0; i < data.length; i++) {
     dates.push(new Date(data[i].date));
-    diffDates.push(diffDays(dates[0].getTime(), dates[i].getTime()));
+    if (!data[i].animation) {
+      diffDates.push(diffDays(dates[0].getTime(), dates[i].getTime()));
+    }
     electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
     boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
   }
@@ -84,9 +86,15 @@ d3.csv("elections.csv", function(data) {
     .enter().append("path")
       .attr("class", "timeline-line")
       .attr("d", d3.line()
-        .x(function() { return 0; })
+        .x(5)
         .y(function(d) { return miniScale(d); })
       );
+  const mark = svg.append("g")
+      .selectAll("timeline-mark")
+      .data(diffDates.slice(1, -1))
+    .enter().append('path')
+      .attr("class", "timeline-mark")
+      .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
@@ -140,6 +148,8 @@ d3.csv("elections.csv", function(data) {
 
         line.classed("gray-line", data[i].election_date_text);
         line.classed("white-line", !data[i].election_date_text);
+        mark.classed("gray-line", data[i].election_date_text);
+        mark.classed("white-line", !data[i].election_date_text);
 
         time.classList.add("shown");
         image.classList.add("shown");

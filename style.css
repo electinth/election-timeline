@@ -144,7 +144,7 @@ h4 {
 }
 
 .mini-timeline {
-  margin-left: -140px;
+  margin-left: -135px;
   transition: all 1s ease;
   width: 40px;
 }
@@ -157,8 +157,11 @@ svg.mini-timeline {
 .timeline-line {
   fill: none;
   stroke: white;
-  stroke-width: 1.5;
+  stroke-width: 1;
   stroke-dasharray: 5,5;
+}
+.timeline-mark {
+  stroke-width: 1;
 }
 .gray-line {
   stroke: #9B9B9B;
@@ -167,6 +170,7 @@ svg.mini-timeline {
   stroke: white;
 }
 .timeline-icon {
+  /* margin-left: -140px; */
   height: 40px;
   background-size: contain;
   background-repeat: no-repeat;
