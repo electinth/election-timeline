@@ -109,7 +109,8 @@ h4 {
 .status.shown, svg.mini-timeline.shown {
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s ease 2s;
+  transition: opacity 1s ease;
+  /* transition: opacity 1s ease 2s; */
 }
 #election-date {
   bottom: 30px;
@@ -182,7 +183,8 @@ svg.mini-timeline {
 }
 #box {
   top: 320px;
-  transition: top 1s ease 1s;
+  transition: top 1s ease;
+  /* transition: top 1s ease 1s; */
   background-image: url('images/Box@2x.png');
 }
 
@@ -263,24 +265,24 @@ svg.mini-timeline {
   100% { background: white;   color: black; }
 } */
 
-.image {
-  height: 150px;
-  background-size: contain;
-  background-repeat:no-repeat;
-  background-position: center;
-}
-.time, .title, .read-more {
+.time, .image, .title, .read-more {
   display: block;
   font-size: 16px;
   line-height: 24px;
   margin: 2em 50px;
   text-align: center;
 
-  visibility: hidden;
-  opacity: 0;
+  /* visibility: hidden;
+  opacity: 0; */
 }
 .time {
   font-weight: bold;
+}
+.image {
+  height: 150px;
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position: center;
 }
 .title {
   font-weight: 300;
@@ -289,16 +291,17 @@ svg.mini-timeline {
   font-weight: 300;
   text-decoration: underline;
 }
-.title.shown, .time.shown, .read-more.shown {
+/* .title.shown, .image.shown, .time.shown, .read-more.shown {
   visibility: visible;
   opacity: 1;
-}
-.time.shown {
+  transition: opacity 1s ease;
+} */
+/* .time.shown {
   transition: opacity 1s ease;
 }
 .image.shown, .title.shown, .read-more.shown {
   transition: opacity 1s ease 1s;
-}
+} */
 /* .text, .status {
   display: block;
   font-weight: bold;

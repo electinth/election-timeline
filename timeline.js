@@ -1,4 +1,4 @@
-const pixelsPerDay = 50;
+const pixelsPerDay = 80;
 function diffDays(fromMs, toMs) {
   return (toMs - fromMs) / 1000 / 60 / 60 / 24;
 }
@@ -17,8 +17,8 @@ d3.csv("elections.csv", function(data) {
     if (!data[i].animation) {
       diffDates.push(diffDays(dates[0].getTime(), dates[i].getTime()));
       electionDates.push(data[i].election_date? new Date(data[i].election_date) : null);
-      boxPos.push(electionDates[i]? diffDays(dates[0].getTime(), electionDates[i].getTime()) : -1);
     }
+    boxPos.push(data[i].election_date? diffDays(dates[0].getTime(), electionDates[electionDates.length-1].getTime()) : -1);
   }
   const now = Date.now();
   const days = diffDays(dates[0].getTime(), now);
@@ -151,20 +151,20 @@ d3.csv("elections.csv", function(data) {
         mark.classed("gray-line", data[i].background === "white");
         mark.classed("white-line", data[i].background !== "white");
 
-        time.classList.add("shown");
-        image.classList.add("shown");
-        title.classList.add("shown");
-        readMore.classList.add("shown");
+        // if (time) time.classList.add("shown");
+        // if (image) image.classList.add("shown");
+        // if (title) title.classList.add("shown");
+        // if (readMore) readMore.classList.add("shown");
 
         electionDateText.classed("black", data[i].background !== "black");
         animateText(electionDateText.select(".text"), data[i].election_date_text || "ไม่ปรากฏ");
       })
-      .on("leave", function(e) {
-        time.classList.remove("shown");
-        image.classList.remove("shown");
-        title.classList.remove("shown");
-        readMore.classList.add("shown");
-      })
+      // .on("leave", function(e) {
+      //   if (time) time.classList.remove("shown");
+      //   if (image) image.classList.remove("shown");
+      //   if (title) title.classList.remove("shown");
+      //   if (readMore) readMore.classList.remove("shown");
+      // })
   		// .addIndicators() // debug (requires plugin)
   		.addTo(controller);
 
