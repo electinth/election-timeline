@@ -151,7 +151,7 @@ h4 {
 }
 svg.mini-timeline {
   margin-left: -125px;
-  width: 20px;
+  width: 100%;
   visibility: hidden;
   opacity: 0;
 }
@@ -160,6 +160,7 @@ svg.mini-timeline {
   stroke: white;
   stroke-width: 1;
   /* stroke-dasharray: 5,5; */
+  transition: all 1s ease;
 }
 .timeline-mark {
   stroke-width: 1;
@@ -183,7 +184,7 @@ svg.mini-timeline {
 }
 #box {
   top: 320px;
-  transition: top 1s ease;
+  transition: all 1s ease;
   /* transition: top 1s ease 1s; */
   background-image: url('images/Box@2x.png');
 }

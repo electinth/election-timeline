@@ -2,6 +2,13 @@ const pixelsPerDay = 80;
 function diffDays(fromMs, toMs) {
   return (toMs - fromMs) / 1000 / 60 / 60 / 24;
 }
+function diffPairs(values) {
+  let pairs = [];
+  for(let i = 0; i < values.length-1; i++) {
+    pairs.push([values[i], values[i+1]]);
+  }
+  return pairs;
+}
 
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
@@ -67,32 +74,34 @@ d3.csv("elections.csv", function(data) {
   box.style("top", "320px");
   const electionDateText = d3.select("#election-date"); //document.getElementById("election-date");
 
-  const miniScaleMargins = { top: 50, bottom: 60 };
+  const miniScaleMargins = { top: 50, bottom: 50 };
   const miniScale = d3.scaleLinear()
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
 
+  let electionDates_unique = electionDates.filter((value, index, self) => (value !== null) && (self.indexOf(value) === index));
+  electionDates_unique.unshift(dates[0].getTime());
+  let electionDates_diff = electionDates_unique.map((d) => diffDays(dates[0].getTime(), d));
+  electionDates_diff.push(expectedDays);
+
   // d3 timeline
-  let diffDatePairs = [];
-  for(let j = 0; j < diffDates.length-1; j++) {
-    diffDatePairs.push([diffDates[j], diffDates[j+1]]);
-  }
   const svg = d3.select("svg")
     .attr("height", miniScale(expectedDays))
     .style("top", 0);
   const line = svg.append("g")
       .selectAll("timeline-line")
-      .data(diffDatePairs)
+      .data(diffPairs(electionDates_diff))
     .enter().append("path")
       .attr("class", "timeline-line")
       .attr("d", d3.line()
         .x(5)
-        .y(function(d) { return miniScale(d); })
+        .y((d) => miniScale(d))
       );
   const mark = svg.append("g")
       .selectAll("timeline-mark")
       .data(diffDates.slice(1, -1))
     .enter().append('path')
+      .style("visibility", "hidden")
       .attr("class", "timeline-mark")
       .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
 
@@ -112,7 +121,7 @@ d3.csv("elections.csv", function(data) {
           box.style("filter", "blur(5px)");
           box.style("opacity", 0);
         } else {
-          box.style("top", miniScale(boxPos[j]));
+          box.style("top", miniScale(boxPos[j]) - 5);
           box.style("filter", "unset");
           box.style("opacity", 1);
         }
@@ -203,6 +212,28 @@ d3.csv("elections.csv", function(data) {
     // .addIndicators()
     .addTo(controller);
 
+  // conclusion
+  const conclusion = d3.select("#conclusion");
+  new ScrollMagic.Scene({
+      triggerElement: document.getElementById("conclusion"),
+      triggerHook: 0.75
+    })
+    .on("enter", function(e) {
+      svg.classed("shown", true);
+      mark.style("visibility", "visible");
+      hand.style("margin-left", "135px");
+      box.style("margin-left", "135px");
+      line.attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 280},0)`);
+    })
+    .on("leave", function(e) {
+      mark.style("visibility", "hidden");
+      hand.style("margin-left", "-135px");
+      box.style("margin-left", "-135px");
+      line.attr("transform", "translate(0,0)");
+    })
+    // .addIndicators()
+    .addTo(controller);
+
   // display election date and counter
   new ScrollMagic.Scene({
       triggerElement: steps[0],
@@ -235,7 +266,7 @@ function animateText(node, data) {
 
   // JOIN new data with old elements.
   let text = node.selectAll("span")
-    .data([data], function(d) { return d; });
+    .data([data], (d) => d);
 
   // EXIT old elements not present in new data.
   text.exit()
@@ -251,7 +282,7 @@ function animateText(node, data) {
       .style("position", "absolute")
       .style("top", "-4rem")
       .style("opacity", 0)
-      .text(function(d) { return d; })
+      .text((d) => d)
     .transition(t)
       .style("top", "-1rem")
       .style("opacity", 1);
