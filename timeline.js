@@ -79,10 +79,11 @@ d3.csv("elections.csv", function(data) {
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
 
-  let electionDates_unique = electionDates.filter((value, index, self) => (value !== null) && (self.indexOf(value) === index));
-  electionDates_unique.unshift(dates[0].getTime());
-  let electionDates_diff = electionDates_unique.map((d) => diffDays(dates[0].getTime(), d));
-  electionDates_diff.push(expectedDays);
+  let electionDates_unique = electionDates.filter((d) => d !== null);
+  electionDates_unique.unshift(dates[0]);
+  let electionDates_diff = electionDates_unique
+    .map((d) => diffDays(dates[0].getTime(), d))
+    .filter((value, index, self) => ((value !== null) && (self.indexOf(value) === index)));
 
   // d3 timeline
   const svg = d3.select("svg")
@@ -157,8 +158,8 @@ d3.csv("elections.csv", function(data) {
 
         line.classed("gray-line", data[i].background === "white");
         line.classed("white-line", data[i].background !== "white");
-        mark.classed("gray-line", data[i].background === "white");
-        mark.classed("white-line", data[i].background !== "white");
+        // mark.classed("gray-line", data[i].background === "white");
+        // mark.classed("white-line", data[i].background !== "white");
 
         // if (time) time.classList.add("shown");
         // if (image) image.classList.add("shown");
@@ -214,22 +215,54 @@ d3.csv("elections.csv", function(data) {
 
   // conclusion
   const conclusion = d3.select("#conclusion");
+  let backgrounds_before = [false, true, false];
   new ScrollMagic.Scene({
       triggerElement: document.getElementById("conclusion"),
       triggerHook: 0.75
     })
     .on("enter", function(e) {
+      backgrounds_before = [
+        timeline.classed('red-background'),
+        timeline.classed('white-background'),
+        timeline.classed('black-background')
+      ];
+      // timeline.classed('red-background',  false);
+      // timeline.classed('white-background',  false);
+      // timeline.classed('black-background',  true);
+      conclusion.classed('red-background',  false);
+      conclusion.classed('white-background',  false);
+      conclusion.classed('black-background',  true);
+
       svg.classed("shown", true);
-      mark.style("visibility", "visible");
+      // mark.style("visibility", "visible");
       hand.style("margin-left", "135px");
       box.style("margin-left", "135px");
-      line.attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 280},0)`);
+      line
+        .classed("red-line", true)
+        .classed("gray-line", false)
+        .classed("white-line", false)
+        .style("stroke-width", 5)
+        // .style("stroke", "#F0324B")
+        .attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 280},0)`);
     })
     .on("leave", function(e) {
-      mark.style("visibility", "hidden");
+      // timeline.classed('red-background',  backgrounds_before[0]);
+      // timeline.classed('white-background',  backgrounds_before[1]);
+      // timeline.classed('black-background',  backgrounds_before[2]);
+      conclusion.classed('red-background',  backgrounds_before[0]);
+      conclusion.classed('white-background',  backgrounds_before[1]);
+      conclusion.classed('black-background',  backgrounds_before[2]);
+
+      // mark.style("visibility", "hidden");
       hand.style("margin-left", "-135px");
       box.style("margin-left", "-135px");
-      line.attr("transform", "translate(0,0)");
+      line
+        .classed("red-line", false)
+        .classed("gray-line", backgrounds_before[1])
+        .classed("white-line", !backgrounds_before[1])
+        .style("stroke-width", 1)
+        // .style("stroke", "#F0324B")
+        .attr("transform", "translate(0,0)");
     })
     // .addIndicators()
     .addTo(controller);

@@ -48,6 +48,14 @@ a:hover {
   text-decoration: underline;
 }
 
+/* #conclusion {
+  background: black;
+  color: white;
+}
+#conclusion a {
+  color: white;
+} */
+
 /* INTRO */
 .intro, .article {
   padding: 15px;
@@ -164,6 +172,9 @@ svg.mini-timeline {
 }
 .timeline-mark {
   stroke-width: 1;
+}
+.red-line {
+  stroke: #F0324B;
 }
 .gray-line {
   stroke: #9B9B9B;
