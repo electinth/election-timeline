@@ -57,7 +57,7 @@ d3.csv("elections.csv", function(data) {
         "</div>" +
         (data[i].image? `<div class='image' style='background-image: url("images/illustrations/${data[i].image}.png");'></div>` : '') +
         `<div class='title'>${data[i].event}</div>` +
-        `<div class='read-more'><a href='${data[i].read_more}'>อ่านเพิ่ม</a></div>`;
+        `<div class='read-more'><a href='${data[i].read_more}' target='_blank'>อ่านเพิ่ม</a></div>`;
     }
     item.innerHTML = htmlString + '</div>';
 
@@ -80,6 +80,7 @@ d3.csv("elections.csv", function(data) {
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
 
   let electionDates_unique = electionDates.filter((d) => d !== null);
+  electionDates_unique = electionDates_unique.filter((d, i, a) => (i < a.length-1)? (a[i+1].getFullYear() !== d.getFullYear()) : true);
   electionDates_unique.unshift(dates[0]);
   let electionDates_diff = electionDates_unique
     .map((d) => diffDays(dates[0].getTime(), d))
@@ -197,7 +198,7 @@ d3.csv("elections.csv", function(data) {
   }
 
   // fade intro
-  const intro = d3.select(".intro"); //document.getElementsByClassName("intro")[0];
+  const intro = d3.select("#intro"); //document.getElementsByClassName("intro")[0];
   new ScrollMagic.Scene({
       triggerElement: steps[0],
       triggerHook: 0.75
@@ -205,10 +206,12 @@ d3.csv("elections.csv", function(data) {
     .on("enter", function(e) {
       intro.style("filter", "blur(5px)");
       intro.style("opacity", 0);
+      intro.style("z-index", -1);
     })
     .on("leave", function(e) {
       intro.style("filter", "unset");
       intro.style("opacity", 1);
+      intro.style("z-index", 0);
     })
     // .addIndicators()
     .addTo(controller);
@@ -226,34 +229,27 @@ d3.csv("elections.csv", function(data) {
         timeline.classed('white-background'),
         timeline.classed('black-background')
       ];
-      // timeline.classed('red-background',  false);
-      // timeline.classed('white-background',  false);
-      // timeline.classed('black-background',  true);
       conclusion.classed('red-background',  false);
       conclusion.classed('white-background',  false);
       conclusion.classed('black-background',  true);
 
       svg.classed("shown", true);
-      // mark.style("visibility", "visible");
-      hand.style("margin-left", "135px");
-      box.style("margin-left", "135px");
+      hand.style("top", miniScale(days) - 30);
+      hand.style("margin-left", "90px");
+      box.style("top", miniScale(boxPos[boxPos.length-1]) - 5);
+      box.style("margin-left", "90px");
       line
         .classed("red-line", true)
         .classed("gray-line", false)
         .classed("white-line", false)
         .style("stroke-width", 5)
-        // .style("stroke", "#F0324B")
-        .attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 280},0)`);
+        .attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 300},0)`);
     })
     .on("leave", function(e) {
-      // timeline.classed('red-background',  backgrounds_before[0]);
-      // timeline.classed('white-background',  backgrounds_before[1]);
-      // timeline.classed('black-background',  backgrounds_before[2]);
       conclusion.classed('red-background',  backgrounds_before[0]);
       conclusion.classed('white-background',  backgrounds_before[1]);
       conclusion.classed('black-background',  backgrounds_before[2]);
 
-      // mark.style("visibility", "hidden");
       hand.style("margin-left", "-135px");
       box.style("margin-left", "-135px");
       line
@@ -261,7 +257,6 @@ d3.csv("elections.csv", function(data) {
         .classed("gray-line", backgrounds_before[1])
         .classed("white-line", !backgrounds_before[1])
         .style("stroke-width", 1)
-        // .style("stroke", "#F0324B")
         .attr("transform", "translate(0,0)");
     })
     // .addIndicators()

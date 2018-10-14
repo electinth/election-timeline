@@ -48,6 +48,10 @@ a:hover {
   text-decoration: underline;
 }
 
+#conclusion {
+  background: black;
+  z-index: 1;
+}
 /* #conclusion {
   background: black;
   color: white;
@@ -57,11 +61,11 @@ a:hover {
 } */
 
 /* INTRO */
-.intro, .article {
+#intro, .article {
   padding: 15px;
   height: 100vh;
 }
-.intro {
+#intro {
   margin-left: -160px;
   /* z-index: -1; */
   transition: all 1s ease;
@@ -113,6 +117,7 @@ h4 {
 .status {
   visibility: hidden;
   opacity: 0;
+  z-index: 1;
 }
 .status.shown, svg.mini-timeline.shown {
   visibility: visible;
@@ -156,10 +161,12 @@ h4 {
   margin-left: -135px;
   transition: all 1s ease;
   width: 40px;
+  z-index: 1;
+  pointer-events: none;
 }
 svg.mini-timeline {
   margin-left: -125px;
-  width: 100%;
+  width: 320px;
   visibility: hidden;
   opacity: 0;
 }
@@ -201,6 +208,9 @@ svg.mini-timeline {
 }
 
 /* TIMELINE */
+.timeline {
+  z-index: 1;
+}
 .timeline ul li {
   list-style-type: none;
   position: relative;
