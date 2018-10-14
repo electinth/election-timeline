@@ -9,6 +9,9 @@
 .timeline .scrolling {
   transition: all 1s ease;
 }
+.scrollmagic-pin-spacer {
+  list-style-type: none;
+}
 .fixed {
   position: fixed;
   left: 50%;
@@ -111,10 +114,21 @@ h4 {
   margin-top: 2em;
 }
 
+#counter {
+  top: 75px;
+  margin-left: -60px;
+  display: table;
+}
+#counter .circle {
+  width: 120px;
+  height: 120px;
+  display: table-cell;
+  vertical-align: middle;
+}
 #counter .text {
   font-family: 'Libre Baskerville', serif
 }
-.status {
+.status, .hidden {
   visibility: hidden;
   opacity: 0;
   z-index: 1;
@@ -124,6 +138,11 @@ h4 {
   opacity: 1;
   transition: opacity 1s ease;
   /* transition: opacity 1s ease 2s; */
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 #election-date {
   bottom: 30px;

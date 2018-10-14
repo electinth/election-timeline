@@ -12,7 +12,7 @@ function diffPairs(values) {
 
 d3.csv("elections.csv", function(data) {
   const list = document.getElementsByTagName("ul")[0];
-  const counter = document.getElementById("counter");
+  const counter = d3.select("#counter");
 
   // prepare date data
   let dates = [];
@@ -113,7 +113,7 @@ d3.csv("elections.csv", function(data) {
   // let height;
 
   let progress = function(e) {
-    counter.getElementsByClassName("text")[0].innerHTML = Math.round(days*e.progress);
+    counter.select(".text").text(Math.round(days*e.progress));
 
     hand.style("top", miniScale(days*e.progress) - 30);
 
@@ -135,21 +135,15 @@ d3.csv("elections.csv", function(data) {
   // let debouncedProgress = _.debounce(progress, 100, { leading: true });
 
   // add scrolling events
+  const wait = d3.selectAll(".wait");
   for (let i = 0; i < steps.length; i++) {
-    let time = steps[i].getElementsByClassName("time")[0];
-    let image = steps[i].getElementsByClassName("image")[0];
-    let title = steps[i].getElementsByClassName("title")[0];
-    let readMore = steps[i].getElementsByClassName("read-more")[0];
+    let wait_cond = steps[i].getElementsByClassName("wait").length !== 0;
 
-    // let whiteCond = data[i].election_date_text;
-    // let blackCond = ((i > 0)? data[i-1].election_date_text : undefined) === "";
-
-  	new ScrollMagic.Scene({
+  	let scene = new ScrollMagic.Scene({
   			triggerElement: steps[i],
         triggerHook: 0.75,
         duration: heights[i]
   		})
-      // .setPin(steps[i])
       // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
         timeline.classed('red-background',  false);
@@ -159,25 +153,24 @@ d3.csv("elections.csv", function(data) {
 
         line.classed("gray-line", data[i].background === "white");
         line.classed("white-line", data[i].background !== "white");
-        // mark.classed("gray-line", data[i].background === "white");
-        // mark.classed("white-line", data[i].background !== "white");
-
-        // if (time) time.classList.add("shown");
-        // if (image) image.classList.add("shown");
-        // if (title) title.classList.add("shown");
-        // if (readMore) readMore.classList.add("shown");
 
         electionDateText.classed("black", data[i].background !== "black");
         animateText(electionDateText.select(".text"), data[i].election_date_text || "ไม่ปรากฏ");
+
+        counter.classed("shown", wait_cond);
+        wait.classed("hidden", !wait_cond);
       })
-      // .on("leave", function(e) {
-      //   if (time) time.classList.remove("shown");
-      //   if (image) image.classList.remove("shown");
-      //   if (title) title.classList.remove("shown");
-      //   if (readMore) readMore.classList.remove("shown");
-      // })
+      .on("leave", function(e) {
+        counter.classed("shown", false);
+      });
   		// .addIndicators() // debug (requires plugin)
-  		.addTo(controller);
+  		// .addTo(controller);
+    if (wait_cond) {
+      scene.setPin(steps[i], {pushFollowers: false});
+      scene.triggerHook(0);
+      scene.offset(-200);
+    }
+    scene.addTo(controller);
 
     // // add events only for red background
     // if (!whiteCond && !blackCond) {
@@ -269,12 +262,10 @@ d3.csv("elections.csv", function(data) {
       duration: heightSums[steps.length-1] //heightSum
     })
     .on("enter", function(e) {
-      counter.classList.add("shown");
       electionDateText.classed("shown", true);
       svg.classed("shown", true);
     })
     .on("leave", function(e) {
-      counter.classList.remove("shown");
       electionDateText.classed("shown", false);
       svg.classed("shown", false);
 
