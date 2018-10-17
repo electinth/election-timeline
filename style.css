@@ -62,6 +62,48 @@ a:hover {
 #conclusion a {
   color: white;
 } */
+#conclusion .title {
+  margin: 0 0 0 60px;
+  display: table;
+}
+#conclusion .title .circle {
+  width: 100px;
+  height: 100px;
+  display: table-cell;
+  vertical-align: middle;
+  background: #F0324B;
+}
+#conclusion .title .text {
+  font-family: 'Libre Baskerville', serif;
+  color: black;
+  line-height: 1.5em;
+}
+#conclusion .stats {
+  width: 130px;
+  margin: -75px 0 0 180px;
+}
+#conclusion .stats ul {
+  list-style: none;
+}
+#conclusion .stats ul li {
+  padding: 15px 0 25px 0;
+}
+#conclusion .stats ul li.highlight {
+  border-top: 0.5px solid #F0324B;
+  border-bottom: 0.5px solid #F0324B;
+}
+#conclusion .stats .text {
+  font-family: 'Libre Baskerville', serif;
+}
+#conclusion .stats .num {
+  font-family: 'Libre Baskerville', serif;
+  text-align: right;
+  width: 100px;
+  margin-top: 5px;
+}
+#conclusion .stats .unit {
+  margin: -3em 0 0 110px;
+}
 
 /* INTRO */
 #intro, .article {
@@ -126,7 +168,7 @@ h4 {
   vertical-align: middle;
 }
 #counter .text {
-  font-family: 'Libre Baskerville', serif
+  font-family: 'Libre Baskerville', serif;
 }
 .status, .hidden {
   visibility: hidden;

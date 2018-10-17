@@ -106,6 +106,13 @@ d3.csv("elections.csv", function(data) {
       .style("visibility", "hidden")
       .attr("class", "timeline-mark")
       .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
+  // const mark = svg.append("g")
+  //     .selectAll("timeline-mark")
+  //     .data(diffDates.slice(1, -1))
+  //   .enter().append('path')
+  //     .style("visibility", "hidden")
+  //     .attr("class", "timeline-mark")
+  //     .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
@@ -254,6 +261,15 @@ d3.csv("elections.csv", function(data) {
     })
     // .addIndicators()
     .addTo(controller);
+  //conclusion stat numbers
+  conclusion.selectAll(".num")
+    .text((d, i) => {
+      switch(i) {
+        case 0: return formatNumber(days);
+        case 1: return formatNumber(electionDates_diff.length - 2);
+        case 2: default: return formatNumber(expectedDays - days);
+      }
+    })
 
   // display election date and counter
   new ScrollMagic.Scene({
@@ -278,6 +294,10 @@ d3.csv("elections.csv", function(data) {
     .addTo(controller);
 
 });
+
+function formatNumber(num) {
+  return num.toLocaleString().split('.')[0];
+}
 
 function animateText(node, data) {
   let t = d3.transition()
