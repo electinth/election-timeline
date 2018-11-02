@@ -1,0 +1,39 @@
+/* Noto Sans Thai UI Web fonts - PAKIN.ME */
+@font-face {
+    font-family: 'Noto Sans Thai UI';
+    src: url('subset-NotoSansThaiUI-Bold.woff2') format('woff2'),
+         url('subset-NotoSansThaiUI-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans Thai UI';
+    src: url('subset-NotoSansThaiUI-Regular.woff2') format('woff2'),
+         url('subset-NotoSansThaiUI-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Font face The Matter */
+@font-face {
+    font-family: 'The Matter';
+    src: url('TheMatter-Bold.eot'); /* IE9 Compat Modes */
+    src: url('TheMatter-Bold?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('TheMatter-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+         url('TheMatter-Bold.woff') format('woff'), /* Pretty Modern Browsers */
+         url('TheMatter-Bold.ttf')  format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'The Matter';
+    src: url('TheMatter-ExtraBold.eot');
+    src: url('TheMatter-ExtraBold?#iefix') format('embedded-opentype'),
+         url('TheMatter-ExtraBold.woff2') format('woff2'),
+         url('TheMatter-ExtraBold.woff') format('woff'),
+         url('TheMatter-ExtraBold.ttf')  format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}

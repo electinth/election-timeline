@@ -1,4 +1,4 @@
-@import url(NotoSansThaiUI-webfonts/stylesheet.css);
+@import url(webfonts/stylesheet.css);
 
 .timeline {
   top: 100vh;
@@ -93,7 +93,7 @@ a:hover {
   border-bottom: 0.5px solid #F0324B;
 }
 #conclusion .stats .text {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'The Matter', serif;
 }
 #conclusion .stats .num {
   font-family: 'Libre Baskerville', serif;
