@@ -174,6 +174,7 @@ d3.csv("elections.csv", function(data) {
   		// .addTo(controller);
     if (wait_cond) {
       scene.setPin(steps[i], {pushFollowers: false});
+      scene.setClassToggle(steps[i], "shown");
       scene.triggerHook(0);
       scene.offset(-200);
     }

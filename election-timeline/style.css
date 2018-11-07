@@ -521,6 +521,12 @@ svg.mini-timeline {
   animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  visibility: hidden;
+  opacity: 0;
+}
+.shown .wait {
+  visibility: visible;
+  opacity: 1;
 }
 @keyframes keyframes1 {
   0%   { background-image: url('images/wait-animate/Asset 1-1@2x.png'); }
