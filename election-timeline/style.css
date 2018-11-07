@@ -54,6 +54,8 @@ a:hover {
 #conclusion {
   background: black;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 /* #conclusion {
   background: black;
@@ -103,6 +105,11 @@ a:hover {
 }
 #conclusion .stats .unit {
   margin: -3em 0 0 110px;
+}
+.share-buttons {
+  margin-top: auto;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 /* INTRO */

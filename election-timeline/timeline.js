@@ -74,7 +74,7 @@ d3.csv("elections.csv", function(data) {
   box.style("top", "320px");
   const electionDateText = d3.select("#election-date"); //document.getElementById("election-date");
 
-  const miniScaleMargins = { top: 50, bottom: 50 };
+  const miniScaleMargins = { top: 50, bottom: 100 };
   const miniScale = d3.scaleLinear()
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
