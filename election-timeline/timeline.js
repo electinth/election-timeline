@@ -100,6 +100,7 @@ d3.csv("elections.csv", function(data) {
         .x(5)
         .y((d) => miniScale(d))
       );
+  const conclusion_line_pos = (i, a) => (i / a * 300) + 10;
   const dashed_line = svg.append("g")
       .selectAll("timeline-dash")
       .data(diffPairs(electionDates_diff))
@@ -108,7 +109,7 @@ d3.csv("elections.csv", function(data) {
       .attr("class", "timeline-dash gray-line")
       .attr("d", (d, i, a) => {
           let d_new = [d[1], d[1]];
-          let len = Math.min(i+1, a.length-1) / a.length * 300;
+          let len = conclusion_line_pos(Math.min(i+1, a.length-1), a.length);
           return d3.line()
             .x((d, i) => i*len)
             .y((d) => miniScale(d))(d_new);
@@ -199,11 +200,11 @@ d3.csv("elections.csv", function(data) {
   		// .addIndicators() // debug (requires plugin)
   		// .addTo(controller);
     if (wait_cond) {
+      scene.setPin(steps[i], {pushFollowers: false});
       scene.setClassToggle(steps[i], "shown");
       scene.triggerHook(0);
       scene.offset(-200);
     }
-    scene.setPin(steps[i], {pushFollowers: false});
     scene.addTo(controller);
 
     // // add events only for red background
@@ -272,7 +273,7 @@ d3.csv("elections.csv", function(data) {
         .classed("gray-line", false)
         .classed("white-line", false)
         .style("stroke-width", 5)
-        .attr("transform", (d, i, nodes) => `translate(${i / nodes.length * 300},0)`);
+        .attr("transform", (d, i, nodes) => `translate(${conclusion_line_pos(i, nodes.length)},0)`);
     })
     .on("leave", function(e) {
       conclusion.classed('red-background',  backgrounds_before[0]);
@@ -281,8 +282,8 @@ d3.csv("elections.csv", function(data) {
 
       dashed_line.style("opacity", 0);
       label.style("opacity", 0);
-      hand.style("margin-left", "-125px");
-      box.style("margin-left", "-125px");
+      hand.style("margin-left", "-135px");
+      box.style("margin-left", "-135px");
       line
         .classed("red-line", false)
         .classed("gray-line", backgrounds_before[1])

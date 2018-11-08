@@ -226,14 +226,14 @@ h4 {
 }
 
 .mini-timeline {
-  margin-left: -125px;
+  margin-left: -135px;
   transition: all 1s ease;
   width: 40px;
   z-index: 1;
   pointer-events: none;
 }
 svg.mini-timeline {
-  margin-left: -115px;
+  margin-left: -125px;
   width: 320px;
   visibility: hidden;
   opacity: 0;
