@@ -56,8 +56,8 @@ d3.csv("elections.csv", function(data) {
         dates[i].toLocaleDateString("th-u-ca-buddhist", {"year":"numeric","month":"short","day":"numeric"}) +
         "</div>" +
         (data[i].image? `<div class='image' style='background-image: url("images/illustrations/${data[i].image}.png");'></div>` : '') +
-        `<div class='title'>${data[i].event}</div>` +
-        `<div class='read-more'><a href='${data[i].read_more}' target='_blank'>อ่านเพิ่ม</a></div>`;
+        `<div class='title'>${data[i].event}</div>`;
+        // `<div class='read-more'><a href='${data[i].read_more}' target='_blank'>อ่านเพิ่ม</a></div>`;
     }
     item.innerHTML = htmlString + '</div>';
 
@@ -199,11 +199,11 @@ d3.csv("elections.csv", function(data) {
   		// .addIndicators() // debug (requires plugin)
   		// .addTo(controller);
     if (wait_cond) {
-      scene.setPin(steps[i], {pushFollowers: false});
       scene.setClassToggle(steps[i], "shown");
       scene.triggerHook(0);
       scene.offset(-200);
     }
+    scene.setPin(steps[i], {pushFollowers: false});
     scene.addTo(controller);
 
     // // add events only for red background
