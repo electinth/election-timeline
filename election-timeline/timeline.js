@@ -89,7 +89,8 @@ d3.csv("elections.csv", function(data) {
   // d3 timeline
   const svg = d3.select("svg")
     .attr("height", miniScale(expectedDays))
-    .style("top", 0);
+    .style("top", 0)
+    .attr("overflow", "visible");
   const line = svg.append("g")
       .selectAll("timeline-line")
       .data(diffPairs(electionDates_diff))
@@ -99,6 +100,31 @@ d3.csv("elections.csv", function(data) {
         .x(5)
         .y((d) => miniScale(d))
       );
+  const dashed_line = svg.append("g")
+      .selectAll("timeline-dash")
+      .data(diffPairs(electionDates_diff))
+    .enter().append("path")
+      .style("opacity", "0")
+      .attr("class", "timeline-dash gray-line")
+      .attr("d", (d, i, a) => {
+          let d_new = [d[1], d[1]];
+          let len = Math.min(i+1, a.length-1) / a.length * 300;
+          return d3.line()
+            .x((d, i) => i*len)
+            .y((d) => miniScale(d))(d_new);
+        }
+      );
+  const label = svg.append("g")
+      .selectAll("timeline-label")
+      .data(electionDates_diff)
+    .enter().append("text")
+      .style("opacity", "0")
+      .attr("class", "timeline-label")
+      .attr("x", -35)
+      .attr("y", (d) => miniScale(d))
+      .attr("dy", "0.5em")
+      .attr("fill", (d) => miniScale(d))
+      .text((d) => `${d} วัน`);
   const mark = svg.append("g")
       .selectAll("timeline-mark")
       .data(diffDates.slice(1, -1))
@@ -198,7 +224,7 @@ d3.csv("elections.csv", function(data) {
     // }
   }
 
-  // fade intro
+  // intro
   const intro = d3.select("#intro"); //document.getElementsByClassName("intro")[0];
   new ScrollMagic.Scene({
       triggerElement: steps[0],
@@ -235,10 +261,12 @@ d3.csv("elections.csv", function(data) {
       conclusion.classed('black-background',  true);
 
       svg.classed("shown", true);
+      dashed_line.style("opacity", 1);
+      label.style("opacity", 1);
       hand.style("top", miniScale(days) - 30);
-      hand.style("margin-left", "90px");
+      hand.style("margin-left", "100px");
       box.style("top", miniScale(boxPos[boxPos.length-1]) - 5);
-      box.style("margin-left", "90px");
+      box.style("margin-left", "100px");
       line
         .classed("red-line", true)
         .classed("gray-line", false)
@@ -251,8 +279,10 @@ d3.csv("elections.csv", function(data) {
       conclusion.classed('white-background',  backgrounds_before[1]);
       conclusion.classed('black-background',  backgrounds_before[2]);
 
-      hand.style("margin-left", "-135px");
-      box.style("margin-left", "-135px");
+      dashed_line.style("opacity", 0);
+      label.style("opacity", 0);
+      hand.style("margin-left", "-125px");
+      box.style("margin-left", "-125px");
       line
         .classed("red-line", false)
         .classed("gray-line", backgrounds_before[1])
