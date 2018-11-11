@@ -545,6 +545,7 @@ svg.mini-timeline {
 /* Animations */
 .wait {
   height: 162px;
+  margin-top: -75vh;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

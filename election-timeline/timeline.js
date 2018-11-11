@@ -178,12 +178,11 @@ d3.csv("elections.csv", function(data) {
         triggerHook: 0.75,
         duration: heights[i]
   		})
-      // .setClassToggle("#animate1", "zap")
   		.on("enter", function(e) {
-        timeline.classed('red-background',  false);
-        timeline.classed('white-background',  false);
-        timeline.classed('black-background',  false);
-        timeline.classed(`${data[i].background}-background`,  true);
+        timeline.classed('red-background', false);
+        timeline.classed('white-background', false);
+        timeline.classed('black-background', false);
+        timeline.classed(`${data[i].background}-background`, true);
 
         line.classed("gray-line", data[i].background === "white");
         line.classed("white-line", data[i].background !== "white");
@@ -195,14 +194,14 @@ d3.csv("elections.csv", function(data) {
         wait.classed("hidden", !wait_cond);
       })
       .on("leave", function(e) {
-        counter.classed("shown", false);
+        counter.classed("shown", !wait_cond);
       });
   		// .addIndicators() // debug (requires plugin)
   		// .addTo(controller);
     if (wait_cond) {
       scene.setPin(steps[i], {pushFollowers: false});
       scene.setClassToggle(steps[i], "shown");
-      scene.triggerHook(0);
+      scene.triggerHook(0.75);
       scene.offset(-200);
     }
     scene.addTo(controller);
@@ -341,7 +340,7 @@ function animateText(node, data) {
 
   // EXIT old elements not present in new data.
   text.exit()
-      .style("top", "-1rem")
+      .style("top", "-1.3rem")
       .style("opacity", 1)
     .transition(t)
       .style("top", "2rem")
@@ -355,6 +354,6 @@ function animateText(node, data) {
       .style("opacity", 0)
       .text((d) => d)
     .transition(t)
-      .style("top", "-1rem")
+      .style("top", "-1.3rem")
       .style("opacity", 1);
 }
