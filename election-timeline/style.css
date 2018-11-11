@@ -106,9 +106,17 @@ a:hover {
 #conclusion .stats .unit {
   margin: -3em 0 0 110px;
 }
-.share-buttons {
+/* .share-buttons {
   margin-top: auto;
   margin-bottom: 20px;
+  text-align: center;
+} */
+.sharebox {
+  margin-top: auto;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.download {
   text-align: center;
 }
 

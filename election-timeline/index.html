@@ -1,7 +1,7 @@
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta charset="utf-8" />
 
   <!-- for Google -->
   <meta name="description" content="เราจะทำตามสัญญา ขอเวลาอีกไม่นาน" />
@@ -21,26 +21,70 @@
   <meta name="twitter:description" content="เดี๋ยวเลือก เดี๋ยวเลื่อน ผ่านมากี่เดือนกี่ปีแล้ว? แม้จะมีถ้อยคำสัญญาออกมาให้หวังอยู่เรื่อยๆ แต่ดูเหมือนว่าการเลือกตั้งของไทยก็ยังไม่เคยมาถึงเสียที ลองมาไล่เรียงกันดูว่าอะไรที่ทำให้คนไทยต้องรอการเลือกตั้งนานนักหนา" />
   <meta name="twitter:image" content="http://elect.in.th/election-timeline/thumbnail.png" />
 
-  <title>อีกนานแค่ไหนกว่าคนไทยจะได้เลือกตั้ง</title>
-  <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Noto+Sans:400,700" rel="stylesheet">
+  <title>อีกนานแค่ไหนกว่าคนไทยจะได้เลือกตั้ง - ELECT.IN.TH</title>
+  <link href="//fonts.googleapis.com/css?family=Libre+Baskerville|Noto+Sans" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="sharer.css">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div id="fb-root"></div>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '171048360504115',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v3.2'
+      });
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <!-- <div id="fb-root"></div>
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
     js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=171048360504115&autoLogAppEvents=1';
     fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+  }(document, 'script', 'facebook-jssdk'));</script> -->
+
+  <header class="site-header">
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand" href="#">
+        <img src="images/site-logo.png">
+        <h6>In Vote We Trust</h6>
+      </a>
+      <div class="ml-auto d-flex navbar-more">
+        <div class="lang">
+          <a class="active">ภาษาไทย</a>
+          <a>English</a>
+        </div>
+        <div class="social">
+          <a><i class="fab fa-facebook-f fa-fw"></i></a>
+          <a><i class="fab fa-twitter fa-fw"></i></a>
+          <a><i class="fab fa-instagram fa-fw"></i></a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
   <section id="intro" class="fixed">
     <div class="container">
       <!-- <h4 class="right-aligned">ภาษาไทย | <a href="">English</a></h4> -->
       <!-- <div class="logo boonmeelab float"></div> -->
-      <h1 class="centered top-space">อีกนานแค่ไหน<br />กว่าคนไทย<br />จะได้เลือกตั้ง</h1>
+      <h1 class="centered">อีกนานแค่ไหน<br />กว่าคนไทย<br />จะได้เลือกตั้ง</h1>
       <h2 class="top-space" style="margin-left: 60px;">เดี๋ยวเลือก เดี๋ยวเลื่อน ผ่านมากี่เดือนกี่ปีแล้ว? แม้จะมีถ้อยคำสัญญาออกมาให้หวังอยู่เรื่อยๆ แต่ดูเหมือนว่าการเลือกตั้งของไทยก็ยังไม่เคยมาถึงเสียที ลองมาไล่เรียงกันดูว่าอะไรที่ทำให้คนไทยต้องรอการเลือกตั้งนานนักหนา</h4>
       <h4 class="highlight right-aligned top-space"><a href="#conclusion">ข้ามไปบทสรุป</a></h4>
       <div class="top-space arrow"></div>
@@ -81,9 +125,18 @@
         <ul>
       </div>
     </div>
-    <div class="share-buttons">
-      <div class="fb-share-button" data-href="http://elect.in.th/election-timeline" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Felect.in.th%2Felection-timeline&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+    <div class="sharebox">
+      <div class="labelbox"><i class="fas fa-share-alt"></i>Share</div>
+      <div class="social">
+        <a class="share-facebook"><i class="fab fa-facebook-f fa-fw"></i></a>
+        <a class="share-twitter"><i class="fab fa-twitter fa-fw"></i></a>
+        <a class="share-line"><i class="fab fa-line fa-fw"></i></a>
+      </div>
     </div>
+    <div class="download"><a target="_blank" href="images/conclusion.png">ดาว์นโหลดบทสรุปนี้เป็นภาพ</a></div>
+    <!-- <div class="share-buttons">
+      <div class="fb-share-button" data-href="http://elect.in.th/election-timeline" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Felect.in.th%2Felection-timeline&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+    </div> -->
   </section>
 
   <svg class="fixed mini-timeline"></svg>
@@ -107,6 +160,7 @@
 <script src="//d3js.org/d3.v4.min.js"></script>
 <!-- <script src="//cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script> -->
 <script src="timeline.js"></script>
+<script src="sharer.js"></script>
 
 </body>
 </html>

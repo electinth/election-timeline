@@ -74,7 +74,7 @@ d3.csv("elections.csv", function(data) {
   box.style("top", "320px");
   const electionDateText = d3.select("#election-date"); //document.getElementById("election-date");
 
-  const miniScaleMargins = { top: 50, bottom: 100 };
+  const miniScaleMargins = { top: 50, bottom: 150 };
   const miniScale = d3.scaleLinear()
     .domain([0, expectedDays])
     .range([miniScaleMargins.top, (window.innerHeight || document.documentElement.clientHeight) - miniScaleMargins.bottom]);
@@ -90,7 +90,7 @@ d3.csv("elections.csv", function(data) {
   const svg = d3.select("svg")
     .attr("height", miniScale(expectedDays))
     .style("top", 0)
-    .attr("overflow", "visible");
+    .style("overflow", "visible");
   const line = svg.append("g")
       .selectAll("timeline-line")
       .data(diffPairs(electionDates_diff))
