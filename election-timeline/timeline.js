@@ -192,10 +192,10 @@ d3.csv("elections.csv", function(data) {
 
         counter.classed("shown", wait_cond);
         wait.classed("hidden", !wait_cond);
-      })
-      .on("leave", function(e) {
-        counter.classed("shown", !wait_cond);
       });
+      // .on("leave", function(e) {
+      //   counter.classed("shown", !wait_cond);
+      // });
   		// .addIndicators() // debug (requires plugin)
   		// .addTo(controller);
     if (wait_cond) {
