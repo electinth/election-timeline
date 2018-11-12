@@ -107,6 +107,7 @@ d3.csv("elections.csv", function(data) {
     .enter().append("path")
       .style("opacity", "0")
       .attr("class", "timeline-dash gray-line")
+      .attr("transform", "translate(10,0)")
       .attr("d", (d, i, a) => {
           let d_new = [d[1], d[1]];
           let len = conclusion_line_pos(Math.min(i+1, a.length-1), a.length);
