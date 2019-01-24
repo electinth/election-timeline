@@ -3,7 +3,8 @@
 .timeline {
   top: 100vh;
   position: relative;
-  background: #F0324B;;
+  background: #F0324B;
+  padding-bottom: 500px;
   /* transition: all 1s ease; */
 }
 .timeline .scrolling {
