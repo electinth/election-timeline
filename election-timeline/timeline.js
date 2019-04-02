@@ -27,7 +27,7 @@ d3.csv("elections.csv", function(data) {
     }
     boxPos.push(data[i].election_date? diffDays(dates[0].getTime(), electionDates[electionDates.length-1].getTime()) : -1);
   }
-  const now = Date.now();
+  const now = Math.min(Date.now(), new Date(data[data.length - 1].election_date)); //compared to the latest election date
   const days = diffDays(dates[0].getTime(), now);
 
   // find the latest election date
@@ -134,18 +134,9 @@ d3.csv("elections.csv", function(data) {
       .style("visibility", "hidden")
       .attr("class", "timeline-mark")
       .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
-  // const mark = svg.append("g")
-  //     .selectAll("timeline-mark")
-  //     .data(diffDates.slice(1, -1))
-  //   .enter().append('path')
-  //     .style("visibility", "hidden")
-  //     .attr("class", "timeline-mark")
-  //     .attr("d", (d) => `M2,${miniScale(d)-3} L8,${miniScale(d)+3} M2,${miniScale(d)+3} L8,${miniScale(d)-3}`);
 
   const controller = new ScrollMagic.Controller();
   const steps = document.querySelectorAll("li.step");
-  // let heightSum = 0;
-  // let height;
 
   let progress = function(e) {
     counter.select(".text").text(Math.round(days*e.progress));
@@ -166,8 +157,6 @@ d3.csv("elections.csv", function(data) {
       }
     }
   };
-  // let throttledProgress = _.throttle(progress, 100);
-  // let debouncedProgress = _.debounce(progress, 100, { leading: true });
 
   // add scrolling events
   const wait = d3.selectAll(".wait");
@@ -194,11 +183,6 @@ d3.csv("elections.csv", function(data) {
         counter.classed("shown", wait_cond);
         wait.classed("hidden", !wait_cond);
       });
-      // .on("leave", function(e) {
-      //   counter.classed("shown", !wait_cond);
-      // });
-  		// .addIndicators() // debug (requires plugin)
-  		// .addTo(controller);
     if (wait_cond) {
       scene.setPin(steps[i], {pushFollowers: false});
       scene.setClassToggle(steps[i], "shown");
@@ -206,27 +190,10 @@ d3.csv("elections.csv", function(data) {
       scene.offset(-200);
     }
     scene.addTo(controller);
-
-    // // add events only for red background
-    // if (!whiteCond && !blackCond) {
-    //   new ScrollMagic.Scene({
-    // 			triggerElement: steps[i],
-    //       triggerHook: 0.75,
-    //       duration: "50%"
-    // 		})
-    // 		.on("enter", function(e) {
-    //       timeline.select(".scrolling").classed("red-background", true);
-    //     })
-    //     .on("leave", function(e) {
-    //       timeline.select(".scrolling").classed("red-background", false);
-    //     })
-    // 		.addIndicators({name: "red background", colorEnd: "#FFFFFF"}) // debug (requires plugin)
-    // 		.addTo(controller);
-    // }
   }
 
   // intro
-  const intro = d3.select("#intro"); //document.getElementsByClassName("intro")[0];
+  const intro = d3.select("#intro");
   new ScrollMagic.Scene({
       triggerElement: steps[0],
       triggerHook: 0.75
@@ -241,7 +208,6 @@ d3.csv("elections.csv", function(data) {
       intro.style("opacity", 1);
       intro.style("z-index", 0);
     })
-    // .addIndicators()
     .addTo(controller);
 
   // conclusion
@@ -291,7 +257,6 @@ d3.csv("elections.csv", function(data) {
         .style("stroke-width", 1)
         .attr("transform", "translate(0,0)");
     })
-    // .addIndicators()
     .addTo(controller);
   //conclusion stat numbers
   conclusion.selectAll(".num")
